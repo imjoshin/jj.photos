@@ -5,7 +5,7 @@ import Content from "../elements/content"
 import Svg from "./svg"
 import { UpDown, UpDownWide } from "../styles/animations"
 // @ts-ignore
-import AboutMDX from "../pages/about"
+import AboutMDX from "../home/about"
 import Colors from "../styles/colors"
 
 const About = ({ offset, factor = 1 }: { offset: number; factor?: number }) => (

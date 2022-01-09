@@ -7,6 +7,6 @@ exports.createPages = async ({ actions }, themeOptions) => {
 
   createPage({
     path: basePath,
-    component: require.resolve(`./src/templates/cara.tsx`),
+    component: require.resolve(`./src/templates/home.tsx`),
   })
 }

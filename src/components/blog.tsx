@@ -7,9 +7,9 @@ import Svg from "./svg"
 import { UpDown, UpDownWide } from "../styles/animations"
 import Colors from "../styles/colors";
 // @ts-ignore
-import ProjectsMDX from "../pages/projects"
+import BlogMDX from "../home/blog"
 
-const Projects = ({ offset, factor = 2 }: { offset: number; factor?: number }) => (
+const Blog = ({ offset, factor = 2 }: { offset: number; factor?: number }) => (
   <div>
     <Divider
       bg="linear-gradient(to right, #6b00b6 0%, #9600ff 100%)"
@@ -28,7 +28,7 @@ const Projects = ({ offset, factor = 2 }: { offset: number; factor?: number }) =
             h2: { gridColumn: `-1/1`, color: `white !important` },
           }}
         >
-          <ProjectsMDX />
+          <BlogMDX />
         </div>
       </Inner>
     </Content>
@@ -60,4 +60,4 @@ const Projects = ({ offset, factor = 2 }: { offset: number; factor?: number }) =
   </div>
 )
 
-export default Projects
+export default Blog

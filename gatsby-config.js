@@ -42,10 +42,10 @@ module.exports = {
     {
       resolve: "gatsby-source-filesystem",
       options: {
-        name: "pages",
-        path: "./src/pages/",
+        name: "home",
+        path: "./src/home/",
       },
-      __key: "pages",
+      __key: "home",
     },
   ],
 };

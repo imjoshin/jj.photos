@@ -6,7 +6,7 @@ import Content from "../elements/content"
 import Svg from "./svg"
 import { UpDown, UpDownWide } from "../styles/animations"
 // @ts-ignore
-import Intro from "../pages/intro"
+import IntroMDX from "../home/intro"
 import Colors from '../styles/colors';
 
 const Hero = ({ offset, factor = 1 }: { offset: number; factor?: number }) => (
@@ -41,7 +41,7 @@ const Hero = ({ offset, factor = 1 }: { offset: number; factor?: number }) => (
     </Divider>
     <Content sx={{ variant: `texts.bigger` }} speed={0.4} offset={offset} factor={factor}>
       <Inner>
-        <Intro />
+        <IntroMDX />
       </Inner>
     </Content>
   </div>

@@ -1,7 +1,14 @@
 module.exports = {
   siteMetadata: {
-    siteUrl: "https://www.jj.photos",
-    title: "JJ Photos",
+    siteTitle: "JJ Photos",
+    siteTitleAlt: "JJ Photos",
+    siteHeadline: "JJ Photo",
+    siteUrl: "https://jj.photos",
+    siteDescription: "",
+    siteLanguage: "en",
+    siteImage: "/images/icon.png",
+    author: "",
+    basePath: "/",
   },
   plugins: [
     "gatsby-plugin-emotion",
@@ -22,6 +29,7 @@ module.exports = {
     },
     "gatsby-plugin-mdx",
     "gatsby-plugin-sharp",
+    "gatsby-plugin-theme-ui",
     "gatsby-transformer-sharp",
     {
       resolve: "gatsby-source-filesystem",

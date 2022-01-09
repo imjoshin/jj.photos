@@ -1,12 +1,12 @@
 import * as React from "react"
-import Divider from "../elements/divider"
-import Inner from "../elements/inner"
-import Content from "../elements/content"
-import Svg from "./svg"
-import { UpDown, UpDownWide } from "../styles/animations"
+import Divider from "../../elements/divider"
+import Inner from "../../elements/inner"
+import Content from "../../elements/content"
+import Svg from "../svg"
+import { UpDown, UpDownWide } from "../../styles/animations"
 // @ts-ignore
-import AboutMDX from "../home/about"
-import Colors from "../styles/colors"
+import AboutMDX from "../../markdown/home/about"
+import Colors from "../../styles/colors"
 
 const About = ({ offset, factor = 1 }: { offset: number; factor?: number }) => (
   <div>

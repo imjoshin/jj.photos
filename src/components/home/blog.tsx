@@ -1,13 +1,13 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import Divider from "../elements/divider"
-import Inner from "../elements/inner"
-import Content from "../elements/content"
-import Svg from "./svg"
-import { UpDown, UpDownWide } from "../styles/animations"
-import Colors from "../styles/colors";
+import Divider from "../../elements/divider"
+import Inner from "../../elements/inner"
+import Content from "../../elements/content"
+import Svg from "../svg"
+import { UpDown, UpDownWide } from "../../styles/animations"
+import Colors from "../../styles/colors";
 // @ts-ignore
-import BlogMDX from "../home/blog"
+import BlogMDX from "../../markdown/home/blog"
 
 const Blog = ({ offset, factor = 2 }: { offset: number; factor?: number }) => (
   <div>

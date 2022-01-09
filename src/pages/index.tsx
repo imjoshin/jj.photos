@@ -6,7 +6,7 @@ import Blog from "../components/home/blog"
 import About from "../components/home/about"
 import Contact from "../components/home/contact"
 
-const Cara = () => (
+const Home = () => (
   <Layout>
     <Parallax pages={5}>
       <Hero offset={0} factor={1} />
@@ -17,4 +17,4 @@ const Cara = () => (
   </Layout>
 )
 
-export default Cara
+export default Home

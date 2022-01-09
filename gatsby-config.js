@@ -42,14 +42,6 @@ module.exports = {
     {
       resolve: "gatsby-source-filesystem",
       options: {
-        name: "home",
-        path: "./src/markdown/home/",
-      },
-      __key: "home",
-    },
-    {
-      resolve: "gatsby-source-filesystem",
-      options: {
         name: "blog",
         path: "./src/markdown/blog/",
       },

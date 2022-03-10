@@ -16,7 +16,7 @@ const Blog = ({ offset, factor = 2 }: { offset: number; factor?: number }) => (
       bg="linear-gradient(to right, #6b00b6 0%, #9600ff 100%)"
       sx={{ clipPath: `polygon(0 15%, 100% 25%, 100% 85%, 0 75%)` }}
       speed={-0.2}
-      offset={1.1}
+      offset={offset + 0.1}
       factor={factor}
     />
     <Content speed={0.4} offset={offset + 0.2} factor={factor}>

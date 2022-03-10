@@ -10,11 +10,12 @@ const HeroCanvas = () => {
 
   useEffect(() => {
     setInterval(() => {
-      setZPos(zPosRef.current * 1.005)
+      // TODO remove this limit once rendering is done
+      if (zPosRef.current < 10000) {
+        setZPos(zPosRef.current * 1.005)
+      }
     }, 10)
   }, [])
-  
-  console.log(zPosRef.current)
   
   return (
     <Canvas>

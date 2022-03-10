@@ -1,17 +1,70 @@
+import * as THREE from 'three'
 import { useFrame, useThree } from "react-three-fiber"
-import { useEffect, useRef, useLayoutEffect } from "react"
+import { useState, useRef, useLayoutEffect } from "react"
+import { useCursor, MeshReflectorMaterial, Image, Text, Environment } from '@react-three/drei'
+
+// Huge credit to Paul Henschel for the start of this frame.
+// See https://codesandbox.io/s/image-gallery-lx2h8.
 
 interface PortraitProps {
   side: "left" | "right",
   index: number,
+  image: string,
 }
 
+const ROTATION_MODIFIER = 2
+const POSITION_MODIFER = {
+  x: 2,
+  y: 0,
+  z: 1.5,
+}
+
+// TODO remove this and account for picture width/height
+const GOLDENRATIO = 1.61803398875
+
 const Portrait = (props: PortraitProps) => {
+  const [hovered, hover] = useState(false)
+  const [rnd] = useState(() => Math.random())
+  const image = useRef<JSX.IntrinsicElements['mesh']>()
+  const frame = useRef<JSX.IntrinsicElements['mesh']>()
+
+  useCursor(hovered)
+  useFrame((state) => {
+    // @ts-ignore
+    image.current.material.zoom = 2 + Math.sin(rnd * 10000 + state.clock.elapsedTime / 3) / 2
+    image.current.scale.x = THREE.MathUtils.lerp(image.current.scale.x, 0.85 * (hovered ? 0.85 : 1), 0.1)
+    image.current.scale.y = THREE.MathUtils.lerp(image.current.scale.y, 0.9 * (hovered ? 0.905 : 1), 0.1)
+  })
+
+  const rotation = new THREE.Euler(
+    0, 
+    Math.PI / ROTATION_MODIFIER * (props.side === 'left' ? 1 : -1),
+    0
+  )
+
+  const position = [
+    POSITION_MODIFER.x * (props.side === 'left' ? -1 : 1), 
+    POSITION_MODIFER.y,
+    POSITION_MODIFER.z * props.index
+  ]
+
   return (
-    <mesh>
-      <boxBufferGeometry width={10} height={1} depth={1} />
-      <meshStandardMaterial color="#9000ff" />
-    </mesh>
+    <group rotation={rotation} position={position}>
+      <mesh
+        onPointerOver={(e) => (e.stopPropagation(), hover(true))}
+        onPointerOut={() => hover(false)}
+        scale={[1, GOLDENRATIO, 0.05]}
+        position={[0, GOLDENRATIO / 2, 0]}>
+        <boxGeometry />
+        <meshStandardMaterial metalness={0.5} roughness={0.5} envMapIntensity={2} />
+        <mesh ref={frame} raycast={() => null} scale={[0.9, 0.93, 0.9]} position={[0, 0, 0.2]}>
+          <boxGeometry />
+          <meshBasicMaterial toneMapped={false} fog={false} />
+        </mesh>
+        {/* @ts-ignore */}
+        <Image raycast={() => null} ref={image} position={[0, 0, 0.7]} url={props.image} />
+      </mesh>
+    </group>
   )
 }
 

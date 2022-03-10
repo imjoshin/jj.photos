@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import { Suspense } from "react"
 import { jsx } from "theme-ui"
 import Divider from "../../../elements/divider"
 import Inner from "../../../elements/inner"
@@ -7,7 +8,7 @@ import Canvas from "./canvas"
 import { ParallaxLayer } from "@react-spring/parallax"
 
 const Hero = ({ offset, factor = 1 }: { offset: number; factor?: number }) => (
-  <div>      
+  <div>
     <ParallaxLayer
       sx={{
         position: `absolute`,
@@ -18,7 +19,10 @@ const Hero = ({ offset, factor = 1 }: { offset: number; factor?: number }) => (
       offset={offset}
       factor={factor}
     >
-      <Canvas />
+      {/* TODO make this loading better */}
+      <Suspense fallback={<div>Loading... </div>}>
+        <Canvas />
+      </Suspense>
     </ParallaxLayer>
   </div>
 )

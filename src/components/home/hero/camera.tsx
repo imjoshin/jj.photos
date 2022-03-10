@@ -1,5 +1,5 @@
-import { useFrame, useThree } from "react-three-fiber"
-import { useEffect, useRef, useLayoutEffect } from "react"
+import { useThree } from "react-three-fiber"
+import { useRef, useLayoutEffect } from "react"
 
 interface CameraProps {
   position: number[],

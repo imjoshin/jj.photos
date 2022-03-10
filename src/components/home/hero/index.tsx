@@ -1,9 +1,6 @@
 /** @jsx jsx */
 import { Suspense } from "react"
 import { jsx } from "theme-ui"
-import Divider from "../../../elements/divider"
-import Inner from "../../../elements/inner"
-import Content from "../../../elements/content"
 import Canvas from "./canvas"
 import { ParallaxLayer } from "@react-spring/parallax"
 

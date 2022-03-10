@@ -1,6 +1,4 @@
-import { useFrame, useThree } from "react-three-fiber"
-import { useEffect, useRef, useLayoutEffect } from "react"
-import { useCursor, MeshReflectorMaterial, Image, Text, Environment } from '@react-three/drei'
+import { MeshReflectorMaterial } from '@react-three/drei'
 
 interface FloorProps {
 
@@ -16,13 +14,14 @@ const Floor = (props: FloorProps) => {
           blur={[250, 150]}
           color="#ffffff"
           depthScale={0.5}
-          maxDepthThreshold={1.4}
-          minDepthThreshold={0.4}
+          maxDepthThreshold={5}
+          minDepthThreshold={0}
           mixBlur={1}
-          mixStrength={10}
+          mixStrength={8}
           metalness={0}
           resolution={1024}
           roughness={0.8}
+          transparent={true}
         />
       </mesh>
     </group>

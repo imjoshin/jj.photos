@@ -4,12 +4,13 @@ import { Canvas, useFrame } from "react-three-fiber"
 import Camera from "./camera"
 import Portrait from "./portrait"
 import Floor from "./floor"
+import { PORTRAIT_POSITION_MODIFER } from "./const"
 
 // TODO use gatsby query images
 import Bird from "../../../images/florida_bird.jpg"
 
 const HeroCanvas = () => {
-  const [zPos, setZPos] = useState(0)
+  const [zPos, setZPos] = useState(-7.5)
   const zPosRef = useRef<number>()
   zPosRef.current = zPos
 
@@ -24,15 +25,16 @@ const HeroCanvas = () => {
     }, 10)
   }, [])
 
-  const portraits = [...Array(10).keys()].reduce((acc, i) => {
-    acc.push(<Portrait key={`${i}-left`} side="left" index={i} image={Bird}/>)
-    acc.push(<Portrait key={`${i}-right`} side="right" index={i} image={Bird}/>)
+  const portraits = [...Array(5).keys()].reduce((acc, i) => {
+    const position = -1 * PORTRAIT_POSITION_MODIFER.x * i - zPos
+    acc.push(<Portrait key={`${i}-left`} side="left" position={position} image={Bird}/>)
+    acc.push(<Portrait key={`${i}-right`} side="right" position={position} image={Bird}/>)
     return acc
   }, [])
   
   return (
     <Canvas>
-      <Camera fov={90} near={0.1} far={1000} position={[0, 0.5, zPos]} />
+      <Camera fov={90} near={0.1} far={1000} position={[0, 0.5, 0]} />
       <pointLight position={[10, 10, 10]} />
       {portraits}
       <Floor />

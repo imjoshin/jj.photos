@@ -10,19 +10,19 @@ const Floor = (props: FloorProps) => {
   return (
     <group position={[0, -0.5, 0]}>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
-        <planeGeometry args={[50, 50]} />
+        <planeGeometry args={[200, 200]} />
         {/* @ts-ignore */}
         <MeshReflectorMaterial
           blur={[250, 150]}
           color="#ffffff"
-          depthScale={1.2}
+          depthScale={0.5}
           maxDepthThreshold={1.4}
           minDepthThreshold={0.4}
           mixBlur={1}
-          mixStrength={50}
-          metalness={0.1}
+          mixStrength={10}
+          metalness={0}
           resolution={1024}
-          roughness={1}
+          roughness={0.8}
         />
       </mesh>
     </group>

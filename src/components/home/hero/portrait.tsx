@@ -2,21 +2,15 @@ import * as THREE from 'three'
 import { useFrame, useThree } from "react-three-fiber"
 import { useState, useRef, useLayoutEffect } from "react"
 import { useCursor, MeshReflectorMaterial, Image, Text, Environment } from '@react-three/drei'
+import { PORTRAIT_ROTATION_MODIFIER, PORTRAIT_POSITION_MODIFER } from "./const"
 
 // Huge credit to Paul Henschel for the start of this frame.
 // See https://codesandbox.io/s/image-gallery-lx2h8.
 
 interface PortraitProps {
   side: "left" | "right",
-  index: number,
   image: string,
-}
-
-const ROTATION_MODIFIER = 2
-const POSITION_MODIFER = {
-  x: 2,
-  y: 0,
-  z: 1.5,
+  position: number,
 }
 
 // TODO remove this and account for picture width/height
@@ -38,14 +32,14 @@ const Portrait = (props: PortraitProps) => {
 
   const rotation = new THREE.Euler(
     0, 
-    Math.PI / ROTATION_MODIFIER * (props.side === 'left' ? 1 : -1),
+    Math.PI / PORTRAIT_ROTATION_MODIFIER * (props.side === 'left' ? 1 : -1),
     0
   )
 
   const position = [
-    POSITION_MODIFER.x * (props.side === 'left' ? -1 : 1), 
-    POSITION_MODIFER.y,
-    POSITION_MODIFER.z * props.index
+    PORTRAIT_POSITION_MODIFER.x * (props.side === 'left' ? -1 : 1), 
+    PORTRAIT_POSITION_MODIFER.y,
+    props.position
   ]
 
   return (
@@ -56,7 +50,7 @@ const Portrait = (props: PortraitProps) => {
         scale={[1, GOLDENRATIO, 0.05]}
         position={[0, GOLDENRATIO / 2, 0]}>
         <boxGeometry />
-        <meshStandardMaterial metalness={0.5} roughness={0.5} envMapIntensity={2} />
+        <meshStandardMaterial color="#151515" metalness={0.5} roughness={0.5} envMapIntensity={2} />
         <mesh ref={frame} raycast={() => null} scale={[0.9, 0.93, 0.9]} position={[0, 0, 0.2]}>
           <boxGeometry />
           <meshBasicMaterial toneMapped={false} fog={false} />

@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import { Suspense } from "react"
 import { jsx } from "theme-ui"
-import Canvas from "./canvas"
+import HeroCanvas from "./canvas"
+import { Canvas } from "react-three-fiber"
 import { ParallaxLayer } from "@react-spring/parallax"
 
 const Hero = ({ offset, factor = 1 }: { offset: number; factor?: number }) => (
@@ -18,7 +19,9 @@ const Hero = ({ offset, factor = 1 }: { offset: number; factor?: number }) => (
     >
       {/* TODO make this loading better */}
       <Suspense fallback={<div>Loading... </div>}>
-        <Canvas />
+        <Canvas>
+          <HeroCanvas />
+        </Canvas>
       </Suspense>
     </ParallaxLayer>
   </div>

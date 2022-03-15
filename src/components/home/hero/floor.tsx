@@ -21,7 +21,6 @@ const Floor = (props: FloorProps) => {
           metalness={0}
           resolution={1024}
           roughness={0.8}
-          transparent={true}
         />
       </mesh>
     </group>

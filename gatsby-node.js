@@ -24,5 +24,17 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
       name: `absolutePath`,
       value: parent.absolutePath,
     })
+
+    createNodeField({
+      node,
+      name: `relativePath`,
+      value: parent.relativePath,
+    })
+
+    createNodeField({
+      node,
+      name: `relativeDirectory`,
+      value: parent.relativeDirectory,
+    })
   }
 }

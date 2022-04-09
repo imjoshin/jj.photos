@@ -10,7 +10,8 @@ import { graphql } from "gatsby"
 
 const Home = ({data}) => { 
   const heroImages = data.allImageSharp.edges.map(sharp => ({
-    src: sharp.node.fluid.src
+    src: sharp.node.fluid.src,
+    blog: `/${sharp.node.fields.relativeDirectory}`,
   }))
 
   return (
@@ -37,6 +38,9 @@ export const query = graphql`
           id
           fluid(maxWidth: 1000, maxHeight: 1000) {
             src
+          }
+          fields {
+            relativeDirectory
           }
         }
       }

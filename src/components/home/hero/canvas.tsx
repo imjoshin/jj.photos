@@ -35,6 +35,7 @@ const HeroCanvas = ({images}: {images: HeroImage[]}) => {
         side="left" 
         position={position} 
         image={images[i % images.length].src} 
+        blog={images[i % images.length].blog} 
         onMouseEnter={() => onMouseHoverEvent({side: 'left', index: i})} 
         onMouseExit={() => onMouseHoverEvent(null)}
       />)
@@ -44,6 +45,7 @@ const HeroCanvas = ({images}: {images: HeroImage[]}) => {
         side="right" 
         position={position}
         image={images[(i + 1) % images.length].src} 
+        blog={images[i % images.length].blog} 
         onMouseEnter={() => onMouseHoverEvent({side: 'right', index: i})} 
         onMouseExit={() => onMouseHoverEvent(null)}
       />)

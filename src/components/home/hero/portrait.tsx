@@ -3,6 +3,8 @@ import { useFrame, useThree } from "react-three-fiber"
 import { useState, useRef, useLayoutEffect } from "react"
 import { useCursor, MeshReflectorMaterial, Image, Text, Environment } from '@react-three/drei'
 import { PORTRAIT_ROTATION_MODIFIER, PORTRAIT_POSITION_MODIFER } from "./const"
+import { navigate } from "gatsby"
+
 
 // Huge credit to Paul Henschel for the start of this frame.
 // See https://codesandbox.io/s/image-gallery-lx2h8.
@@ -10,6 +12,7 @@ import { PORTRAIT_ROTATION_MODIFIER, PORTRAIT_POSITION_MODIFER } from "./const"
 interface PortraitProps {
   side: "left" | "right",
   image: string,
+  blog: string,
   position: number,
   onMouseEnter: () => void,
   onMouseExit: () => void,
@@ -49,6 +52,7 @@ const Portrait = (props: PortraitProps) => {
       <mesh
         onPointerOver={(e) => (e.stopPropagation(), hover(true), props.onMouseEnter())}
         onPointerOut={() => (hover(false), props.onMouseExit())}
+        onPointerDown={() => navigate(props.blog)}
         scale={[1, GOLDENRATIO, 0.05]}
         position={[0, GOLDENRATIO / 2, 0]}>
         <boxGeometry />

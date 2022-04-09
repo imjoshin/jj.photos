@@ -18,7 +18,7 @@ const Hero = ({ offset, factor = 1 }: { offset: number; factor?: number }) => (
       factor={factor}
     >
       {/* TODO make this loading better */}
-      <Suspense fallback={<div>Loading... </div>}>
+      <Suspense fallback={<div></div>}>
         <Canvas>
           <HeroCanvas />
         </Canvas>

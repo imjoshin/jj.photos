@@ -9,7 +9,7 @@ import { PORTRAIT_POSITION_MODIFER, PORTRIAT_SPEED } from "./const"
 import Bird from "../../../images/florida_bird.jpg"
 
 const HeroCanvas = () => {
-  const [zPos, setZPose] = useState<number>(-7.5)
+  const [zPos, setZPos] = useState<number>(-7)
   const [portraitHovered, setPortraitHovered] = useState<string | null>()
   const [speed, setSpeed] = useState<number>()
   const zPosRef = useRef<number>()
@@ -18,11 +18,9 @@ const HeroCanvas = () => {
   portraitHoveredRef.current = portraitHovered
   const speedRef = useRef<number>(PORTRIAT_SPEED)
 
-  // TODO pause camera on image hover
   useFrame(() => {
-    // TODO ease camera on halt
     speedRef.current = THREE.MathUtils.lerp(speedRef.current, portraitHoveredRef.current ? 0 : PORTRIAT_SPEED, 0.05)
-    setZPose(zPosRef.current + (speedRef.current / 1000))
+    setZPos(zPosRef.current + (speedRef.current / 1000))
   })
 
   const onMouseHoverEvent = useCallback((portrait: {side: 'left' | 'right', index: number} | null) => {
@@ -33,6 +31,7 @@ const HeroCanvas = () => {
   const portraits = [...Array(5).keys()].reduce((acc, i) => {
     const position = -1 * PORTRAIT_POSITION_MODIFER.x * i - zPosRef.current
 
+    // TODO pull actual images from blog
     if (position < 0) {
       acc.push(<Portrait 
         key={`${i}-left`} 

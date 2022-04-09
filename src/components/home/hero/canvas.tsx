@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { useFrame } from "react-three-fiber"
 import Camera from "./camera"
 import Portrait from "./portrait"
-import { PORTRAIT_POSITION_MODIFER, PORTRIAT_SPEED } from "./const"
+import { PORTRAIT_POSITION_MODIFER, PORTRAIT_SPEED } from "./const"
 
 // TODO use gatsby query images
 import Bird from "../../../images/florida_bird.jpg"
@@ -16,10 +16,10 @@ const HeroCanvas = () => {
   zPosRef.current = zPos
   const portraitHoveredRef = useRef<string | null>()
   portraitHoveredRef.current = portraitHovered
-  const speedRef = useRef<number>(PORTRIAT_SPEED)
+  const speedRef = useRef<number>(PORTRAIT_SPEED)
 
   useFrame(() => {
-    speedRef.current = THREE.MathUtils.lerp(speedRef.current, portraitHoveredRef.current ? 0 : PORTRIAT_SPEED, 0.05)
+    speedRef.current = THREE.MathUtils.lerp(speedRef.current, portraitHoveredRef.current ? 0 : PORTRAIT_SPEED, 0.05)
     setZPos(zPosRef.current + (speedRef.current / 1000))
   })
 

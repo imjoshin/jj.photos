@@ -10,3 +10,19 @@ exports.createPages = async ({ actions }, themeOptions) => {
   //   component: require.resolve(`./src/templates/home.tsx`),
   // })
 }
+
+exports.onCreateNode = ({ node, getNode, actions }) => {
+  const { createNodeField } = actions
+
+  // TODO add blog path
+
+  if (node.internal.type === `ImageSharp`) {
+    const parent = getNode(node.parent)
+
+    createNodeField({
+      node,
+      name: `absolutePath`,
+      value: parent.absolutePath,
+    })
+  }
+}

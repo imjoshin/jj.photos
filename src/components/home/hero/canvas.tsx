@@ -4,14 +4,11 @@ import { useFrame } from "react-three-fiber"
 import Camera from "./camera"
 import Portrait from "./portrait"
 import { PORTRAIT_POSITION_MODIFER, PORTRAIT_SPEED } from "./const"
+import { HeroImage } from '.'
 
-// TODO use gatsby query images
-import Bird from "../../../images/florida_bird.jpg"
-
-const HeroCanvas = () => {
+const HeroCanvas = ({images}: {images: HeroImage[]}) => {
   const [zPos, setZPos] = useState<number>(-7)
   const [portraitHovered, setPortraitHovered] = useState<string | null>()
-  const [speed, setSpeed] = useState<number>()
   const zPosRef = useRef<number>()
   zPosRef.current = zPos
   const portraitHoveredRef = useRef<string | null>()
@@ -28,16 +25,16 @@ const HeroCanvas = () => {
   }, [])
 
   // TODO there's some optimization to be done here
+  // TODO wrap images when we've rendered all
   const portraits = [...Array(5).keys()].reduce((acc, i) => {
     const position = -1 * PORTRAIT_POSITION_MODIFER.x * i - zPosRef.current
 
-    // TODO pull actual images from blog
     if (position < 0) {
       acc.push(<Portrait 
         key={`${i}-left`} 
         side="left" 
         position={position} 
-        image={Bird} 
+        image={images[i % images.length].src} 
         onMouseEnter={() => onMouseHoverEvent({side: 'left', index: i})} 
         onMouseExit={() => onMouseHoverEvent(null)}
       />)
@@ -45,8 +42,8 @@ const HeroCanvas = () => {
       acc.push(<Portrait 
         key={`${i}-right`} 
         side="right" 
-        position={position} 
-        image={Bird} 
+        position={position}
+        image={images[(i + 1) % images.length].src} 
         onMouseEnter={() => onMouseHoverEvent({side: 'right', index: i})} 
         onMouseExit={() => onMouseHoverEvent(null)}
       />)

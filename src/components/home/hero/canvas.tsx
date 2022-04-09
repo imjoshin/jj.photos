@@ -1,32 +1,56 @@
-
-import { useEffect, useRef, useState } from "react"
+import * as THREE from 'three'
+import { useCallback, useEffect, useRef, useState } from "react"
 import { useFrame } from "react-three-fiber"
 import Camera from "./camera"
 import Portrait from "./portrait"
-import { PORTRAIT_POSITION_MODIFER } from "./const"
+import { PORTRAIT_POSITION_MODIFER, PORTRIAT_SPEED } from "./const"
 
 // TODO use gatsby query images
 import Bird from "../../../images/florida_bird.jpg"
 
 const HeroCanvas = () => {
   const [zPos, setZPose] = useState<number>(-7.5)
+  const [portraitHovered, setPortraitHovered] = useState<string | null>()
+  const [speed, setSpeed] = useState<number>()
   const zPosRef = useRef<number>()
   zPosRef.current = zPos
+  const portraitHoveredRef = useRef<string | null>()
+  portraitHoveredRef.current = portraitHovered
+  const speedRef = useRef<number>(PORTRIAT_SPEED)
 
   // TODO pause camera on image hover
   useFrame(() => {
-    if (zPosRef.current < 3) {
-      setZPose(zPosRef.current + 0.005)
-    }
+    // TODO ease camera on halt
+    speedRef.current = THREE.MathUtils.lerp(speedRef.current, portraitHoveredRef.current ? 0 : PORTRIAT_SPEED, 0.05)
+    setZPose(zPosRef.current + (speedRef.current / 1000))
   })
+
+  const onMouseHoverEvent = useCallback((portrait: {side: 'left' | 'right', index: number} | null) => {
+    setPortraitHovered(portrait ? `${portrait.index}-${portrait.side}` : null)
+  }, [])
 
   // TODO there's some optimization to be done here
   const portraits = [...Array(5).keys()].reduce((acc, i) => {
     const position = -1 * PORTRAIT_POSITION_MODIFER.x * i - zPosRef.current
 
     if (position < 0) {
-      acc.push(<Portrait key={`${i}-left`} side="left" position={position} image={Bird}/>)
-      acc.push(<Portrait key={`${i}-right`} side="right" position={position} image={Bird}/>)
+      acc.push(<Portrait 
+        key={`${i}-left`} 
+        side="left" 
+        position={position} 
+        image={Bird} 
+        onMouseEnter={() => onMouseHoverEvent({side: 'left', index: i})} 
+        onMouseExit={() => onMouseHoverEvent(null)}
+      />)
+      
+      acc.push(<Portrait 
+        key={`${i}-right`} 
+        side="right" 
+        position={position} 
+        image={Bird} 
+        onMouseEnter={() => onMouseHoverEvent({side: 'right', index: i})} 
+        onMouseExit={() => onMouseHoverEvent(null)}
+      />)
     }
 
     return acc

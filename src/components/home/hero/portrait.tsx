@@ -11,6 +11,8 @@ interface PortraitProps {
   side: "left" | "right",
   image: string,
   position: number,
+  onMouseEnter: () => void,
+  onMouseExit: () => void,
 }
 
 // TODO remove this and account for picture width/height
@@ -45,8 +47,8 @@ const Portrait = (props: PortraitProps) => {
   return (
     <group rotation={rotation} position={position}>
       <mesh
-        onPointerOver={(e) => (e.stopPropagation(), hover(true))}
-        onPointerOut={() => hover(false)}
+        onPointerOver={(e) => (e.stopPropagation(), hover(true), props.onMouseEnter())}
+        onPointerOut={() => (hover(false), props.onMouseExit())}
         scale={[1, GOLDENRATIO, 0.05]}
         position={[0, GOLDENRATIO / 2, 0]}>
         <boxGeometry />
@@ -56,7 +58,7 @@ const Portrait = (props: PortraitProps) => {
           <meshBasicMaterial toneMapped={false} fog={false} />
         </mesh>
         {/* @ts-ignore */}
-        <Image raycast={() => null} ref={image} position={[0, 0, 0.7]} url={props.image} />
+        <Image raycast={() => null} ref={image} position={[0, 0, 0.7]} url={props.image} form />
       </mesh>
     </group>
   )

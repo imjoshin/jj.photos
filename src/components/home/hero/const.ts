@@ -4,4 +4,4 @@ export const PORTRAIT_POSITION_MODIFER = {
   y: 0,
   z: 1.5,
 }
-export const PORTRAIT_SPEED = 3.5
+export const PORTRAIT_SPEED = 5

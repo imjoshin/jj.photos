@@ -9,10 +9,14 @@ import Contact from "../components/home/contact"
 import { graphql } from "gatsby"
 
 const Home = ({data}) => { 
-  const heroImages = data.allImageSharp.edges.map(sharp => ({
-    src: sharp.node.fluid.src,
-    blog: `/${sharp.node.fields.relativeDirectory}`,
-  }))
+  const heroImages = data.allImageSharp.edges
+    .map(sharp => ({
+      src: sharp.node.fluid.src,
+      blog: `/${sharp.node.fields.relativeDirectory}`,
+    }))
+    .map(value => ({ value, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ value }) => value)
 
   return (
     <Layout>

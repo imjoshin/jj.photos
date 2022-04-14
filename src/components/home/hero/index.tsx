@@ -4,6 +4,7 @@ import { jsx } from "theme-ui"
 import HeroCanvas from "./canvas"
 import { Canvas } from "react-three-fiber"
 import { ParallaxLayer } from "@react-spring/parallax"
+import "./index.css"
 
 export interface HeroImage {
   src: string,
@@ -22,12 +23,11 @@ const Hero = ({ offset, factor = 1, images }: { offset: number; factor?: number,
       offset={offset}
       factor={factor}
     >
-      {/* TODO make this loading better */}
-      <Suspense fallback={<div></div>}>
+      <div className="hero-canvas">
         <Canvas>
           <HeroCanvas images={images} />
         </Canvas>
-      </Suspense>
+      </div>
     </ParallaxLayer>
   </div>
 )

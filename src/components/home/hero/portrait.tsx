@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { useFrame, useThree } from "react-three-fiber"
-import { useState, useRef, useLayoutEffect } from "react"
+import { useState, useRef, useLayoutEffect, useEffect } from "react"
 import { useCursor, MeshReflectorMaterial, Image, Text, Environment } from '@react-three/drei'
 import { PORTRAIT_ROTATION_MODIFIER, PORTRAIT_POSITION_MODIFER } from "./const"
 import { navigate } from "gatsby"
@@ -31,6 +31,12 @@ const Portrait = (props: PortraitProps) => {
 
   const frameRotation = Math.PI / PORTRAIT_ROTATION_MODIFIER * (props.side === 'left' ? 1 : -1)
 
+  useEffect(() => {
+    if (group.current) {
+      group.current.rotation.y = frameRotation
+    }
+  }, [group.current])
+
   useCursor(hovered)
   useFrame((state) => {
     // @ts-ignore
@@ -41,7 +47,7 @@ const Portrait = (props: PortraitProps) => {
     image.current.material.zoom = 2 + Math.sin(rnd * 10000 + state.clock.elapsedTime / 3) / 2
     image.current.scale.x = THREE.MathUtils.lerp(image.current.scale.x, 0.85 * (hovered ? 0.85 : 1), 0.1)
     image.current.scale.y = THREE.MathUtils.lerp(image.current.scale.y, 0.9 * (hovered ? 0.905 : 1), 0.1)
-    group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, hovered ? frameRotation / 3 : frameRotation, 0.05)
+    group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, hovered ? frameRotation / 1.5 : frameRotation, 0.1)
   })
 
   const position = [

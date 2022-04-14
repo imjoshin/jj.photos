@@ -23,6 +23,7 @@ const Hero = ({ offset, factor = 1, images }: { offset: number; factor?: number,
       offset={offset}
       factor={factor}
     >
+      {/* TODO make this loading better */}
       <div className="hero-canvas">
         <Canvas>
           <HeroCanvas images={images} />

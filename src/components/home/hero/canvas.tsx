@@ -7,7 +7,7 @@ import { PORTRAIT_POSITION_MODIFER, PORTRAIT_SPEED } from "./const"
 import { HeroImage } from '.'
 
 const HeroCanvas = ({images}: {images: HeroImage[]}) => {
-  const [zPos, setZPos] = useState<number>(-7)
+  const [zPos, setZPos] = useState<number>(-3)
   const [portraitHovered, setPortraitHovered] = useState<string | null>()
   const zPosRef = useRef<number>()
   zPosRef.current = zPos
@@ -55,7 +55,7 @@ const HeroCanvas = ({images}: {images: HeroImage[]}) => {
   }, [])
   
   return <group>
-      <Camera fov={90} near={0.1} far={10} position={[0, 0.5, 0]} />
+      <Camera fov={75} near={0.1} far={10} position={[0, 0.5, 0]} />
       {/* <pointLight position={[10, 10, 10]} /> */}
       <ambientLight intensity={0.8} />
       {portraits}

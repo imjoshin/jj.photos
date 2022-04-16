@@ -26,6 +26,7 @@ const createPortraitObject = (
   side: 'left' | 'right',
   zPos: number,
 ) => {
+  const randomImage = images[Math.floor(images.length * Math.random())]
   return {
     index,
     position: {
@@ -33,8 +34,8 @@ const createPortraitObject = (
       y: PORTRAIT_POSITION_MODIFER.y,
       z: zPos
     },
-    image: images[index % images.length].src,
-    blog: images[index % images.length].blog,
+    image: randomImage.src,
+    blog: randomImage.blog,
     side,
   }
 }

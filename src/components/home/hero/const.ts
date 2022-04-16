@@ -5,7 +5,7 @@ export const PORTRAIT_POSITION_MODIFER = {
   z: 1.3,
 }
 export const PORTRAIT_DISTANCE  = 1.6
-export const PORTRAIT_SPEED = 10
+export const PORTRAIT_SPEED = 5 // different for each device size?
 
 // the number on each side
 export const RENDERED_PORTRAITS_COUNT = 10

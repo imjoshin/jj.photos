@@ -20,6 +20,7 @@ interface PortraitProps {
 }
 
 // TODO remove this and account for picture width/height
+// this comes out to be the ratio of height:width
 const GOLDENRATIO = 1.61803398875
 
 const Portrait = (props: PortraitProps) => {
@@ -63,11 +64,11 @@ const Portrait = (props: PortraitProps) => {
           onPointerOver={(e) => (e.stopPropagation(), hover(true), props.onMouseEnter())}
           onPointerOut={() => (hover(false), props.onMouseExit())}
           onPointerUp={() => navigate(props.blog)}
-          scale={[1, GOLDENRATIO, 0.05]}
+          scale={[1, GOLDENRATIO, 0.04]}
           position={[0, GOLDENRATIO / 2, 0]}>
           <boxGeometry />
           <meshStandardMaterial color="#151515" metalness={0.5} roughness={0.5} envMapIntensity={2} />
-          <mesh ref={frame} raycast={() => null} scale={[0.9, 0.93, 0.9]} position={[0, 0, 0.2]}>
+          <mesh ref={frame} raycast={() => null} scale={[0.93, 0.95, 0.93]} position={[0, 0, 0.2]}>
             <boxGeometry />
             <meshBasicMaterial toneMapped={false} fog={false} />
           </mesh>

@@ -3,8 +3,41 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { useFrame } from "react-three-fiber"
 import Camera from "./camera"
 import Portrait from "./portrait"
-import { PORTRAIT_POSITION_MODIFER, PORTRAIT_SPEED } from "./const"
+import { PORTRAIT_POSITION_MODIFER, PORTRAIT_SPEED, RENDERED_PORTRAITS_COUNT, CAMERA_DISTANCE, PORTRAIT_DISTANCE } from "./const"
 import { HeroImage } from '.'
+
+// TODO clean up all these types
+
+interface RenderedPortrait {
+  index: number,
+  position: {
+    x: number,
+    y: number,
+    z: number,
+  },
+  image: string,
+  blog: string,
+  side: 'left' | 'right',
+}
+
+const createPortraitObject = (
+  images: HeroImage[],
+  index: number,
+  side: 'left' | 'right',
+  zPos: number,
+) => {
+  return {
+    index,
+    position: {
+      x: PORTRAIT_POSITION_MODIFER.x * (side === 'left' ? -1 : 1), 
+      y: PORTRAIT_POSITION_MODIFER.y,
+      z: zPos
+    },
+    image: images[index % images.length].src,
+    blog: images[index % images.length].blog,
+    side,
+  }
+}
 
 const HeroCanvas = ({images}: {images: HeroImage[]}) => {
   const [zPos, setZPos] = useState<number>(-3)
@@ -14,9 +47,63 @@ const HeroCanvas = ({images}: {images: HeroImage[]}) => {
   const portraitHoveredRef = useRef<string | null>()
   portraitHoveredRef.current = portraitHovered
   const speedRef = useRef<number>(PORTRAIT_SPEED)
+  const portraitCount = useRef<number>(0)
+  const renderedPortraits = useRef<{left: RenderedPortrait[], right: RenderedPortrait[]}>({left: [], right: []})
 
   useFrame(() => {
-    speedRef.current = THREE.MathUtils.lerp(speedRef.current, portraitHoveredRef.current ? 0 : PORTRAIT_SPEED, 0.05)
+    speedRef.current = THREE.MathUtils.lerp(speedRef.current, portraitHoveredRef.current ? 0 : PORTRAIT_SPEED, 0.1)
+    const zDelta = speedRef.current / 1000
+
+    const newRenderedPortraits: {left: RenderedPortrait[], right: RenderedPortrait[]} = {left: [], right: []}
+
+    // TODO clean this up, it's like really nasty lookin'
+  
+    renderedPortraits.current.left.forEach(rp => {
+      if (rp.position.z > -1 * CAMERA_DISTANCE - 2) {
+        newRenderedPortraits.left.push({
+          ...rp,
+          position: {
+            ...rp.position,
+            z: rp.position.z - zDelta
+          }
+        })
+      }
+    })
+  
+    renderedPortraits.current.right.forEach(rp => {
+      if (rp.position.z > -1 * CAMERA_DISTANCE - 2) {
+        newRenderedPortraits.right.push({
+          ...rp,
+          position: {
+            ...rp.position,
+            z: rp.position.z - zDelta
+          }
+        })
+      }
+    })
+  
+    while(newRenderedPortraits.left.length < RENDERED_PORTRAITS_COUNT) {
+      const lastPosition = newRenderedPortraits.left[newRenderedPortraits.left.length - 1]?.position.z || (-1 * CAMERA_DISTANCE + 1)
+      newRenderedPortraits.left.push(createPortraitObject(
+        images,
+        portraitCount.current++,
+        'left',
+        lastPosition + PORTRAIT_DISTANCE
+      ))
+    }
+  
+    while(newRenderedPortraits.right.length < RENDERED_PORTRAITS_COUNT) {
+      const lastPosition = newRenderedPortraits.right[newRenderedPortraits.right.length - 1]?.position.z || (-1 * CAMERA_DISTANCE + 1)
+      newRenderedPortraits.right.push(createPortraitObject(
+        images,
+        portraitCount.current++,
+        'right',
+        lastPosition + PORTRAIT_DISTANCE
+      ))
+    }
+  
+    renderedPortraits.current = newRenderedPortraits
+
     setZPos(zPosRef.current + (speedRef.current / 1000))
   })
 
@@ -24,38 +111,20 @@ const HeroCanvas = ({images}: {images: HeroImage[]}) => {
     setPortraitHovered(portrait ? `${portrait.index}-${portrait.side}` : null)
   }, [])
 
-  // TODO there's some optimization to be done here
-  // TODO wrap images when we've rendered all
-  const portraits = [...Array(5).keys()].reduce((acc, i) => {
-    const position = -1 * PORTRAIT_POSITION_MODIFER.x * i - zPosRef.current
-
-    if (position < 0) {
-      acc.push(<Portrait 
-        key={`${i}-left`} 
-        side="left" 
-        position={position} 
-        image={images[i % images.length].src} 
-        blog={images[i % images.length].blog} 
-        onMouseEnter={() => onMouseHoverEvent({side: 'left', index: i})} 
+  const portraits = renderedPortraits.current.left.concat(renderedPortraits.current.right).map(p => 
+    <Portrait 
+        key={p.index} 
+        side={p.side}
+        position={p.position.z} 
+        image={p.image} 
+        blog={p.blog} 
+        onMouseEnter={() => onMouseHoverEvent({side: p.side, index: p.index})} 
         onMouseExit={() => onMouseHoverEvent(null)}
-      />)
-      
-      acc.push(<Portrait 
-        key={`${i}-right`} 
-        side="right" 
-        position={position}
-        image={images[(i + 1) % images.length].src} 
-        blog={images[(i + 1) % images.length].blog} 
-        onMouseEnter={() => onMouseHoverEvent({side: 'right', index: i})} 
-        onMouseExit={() => onMouseHoverEvent(null)}
-      />)
-    }
-
-    return acc
-  }, [])
+      />
+  )
   
   return <group>
-      <Camera fov={75} near={0.1} far={10} position={[0, 0.5, 0]} />
+      <Camera fov={75} near={0.1} far={CAMERA_DISTANCE} position={[0, 0.5, 0]} />
       {/* <pointLight position={[10, 10, 10]} /> */}
       <ambientLight intensity={0.8} />
       {portraits}

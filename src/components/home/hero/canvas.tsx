@@ -48,6 +48,7 @@ const HeroCanvas = ({images}: {images: HeroImage[]}) => {
   const speedRef = useRef<number>(PORTRAIT_SPEED)
   const portraitCount = useRef<number>(0)
   const renderedPortraits = useRef<{left: RenderedPortrait[], right: RenderedPortrait[]}>({left: [], right: []})
+  const nextImage = useRef<HeroImage>(images[Math.floor(images.length * Math.random())])
 
   useFrame(() => {
     speedRef.current = THREE.MathUtils.lerp(speedRef.current, portraitHoveredRef.current ? 0 : PORTRAIT_SPEED, 0.1)
@@ -94,19 +95,20 @@ const HeroCanvas = ({images}: {images: HeroImage[]}) => {
       const lastImage = lastPortrait?.image
       const lastPosition = lastPortrait?.position.z || (-1 * CAMERA_DISTANCE + 1)
 
-      const nextImage = images[Math.floor(images.length * Math.random())]
-      const nextPosition = lastPosition + PORTRAIT_DISTANCE + (1.4 * (nextImage?.aspectRatio || 0)) / 2 + (1.4 * (lastImage?.aspectRatio || 0)) / 2
+      const nextPosition = lastPosition + PORTRAIT_DISTANCE + (1.4 * (nextImage.current.aspectRatio || 0)) / 2 + (1.4 * (lastImage?.aspectRatio || 0)) / 2
 
       if (nextPosition > PORTRAIT_START_POSITION.z) {
         break
       }
 
       newRenderedPortraits.left.push(createPortraitObject(
-        nextImage,
+        nextImage.current,
         portraitCount.current++,
         'left',
         nextPosition
       ))
+
+      nextImage.current = images[Math.floor(images.length * Math.random())]
     }
   
     while(newRenderedPortraits.right.length < RENDERED_PORTRAITS_COUNT) {
@@ -114,19 +116,20 @@ const HeroCanvas = ({images}: {images: HeroImage[]}) => {
       const lastImage = lastPortrait?.image
       const lastPosition = lastPortrait?.position.z || (-1 * CAMERA_DISTANCE + 1)
 
-      const nextImage = images[Math.floor(images.length * Math.random())]
-      const nextPosition = lastPosition + PORTRAIT_DISTANCE + (1.4 * (nextImage?.aspectRatio || 0)) / 2 + (1.4 * (lastImage?.aspectRatio || 0)) / 2
+      const nextPosition = lastPosition + PORTRAIT_DISTANCE + (1.4 * (nextImage.current.aspectRatio || 0)) / 2 + (1.4 * (lastImage?.aspectRatio || 0)) / 2
 
       if (nextPosition > PORTRAIT_START_POSITION.z) {
         break
       }
 
       newRenderedPortraits.right.push(createPortraitObject(
-        nextImage,
+        nextImage.current,
         portraitCount.current++,
         'right',
         nextPosition
       ))
+      
+      nextImage.current = images[Math.floor(images.length * Math.random())]
     }
   
     renderedPortraits.current = newRenderedPortraits

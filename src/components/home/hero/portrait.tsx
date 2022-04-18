@@ -14,7 +14,11 @@ interface PortraitProps {
   side: "left" | "right",
   image: string,
   blog: string,
-  position: number,
+  position: {
+    x: number,
+    y: number,
+    z: number,
+  },
   onMouseEnter: () => void,
   onMouseExit: () => void,
 }
@@ -51,11 +55,7 @@ const Portrait = (props: PortraitProps) => {
     group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, hovered ? frameRotation / 1.5 : frameRotation, 0.1)
   })
 
-  const position = [
-    PORTRAIT_POSITION_MODIFER.x * (props.side === 'left' ? -1 : 1), 
-    PORTRAIT_POSITION_MODIFER.y,
-    props.position
-  ]
+  const position = [props.position.x, props.position.y, props.position.z]
 
   return (
     <Suspense fallback={<group></group>}>

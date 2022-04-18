@@ -64,7 +64,8 @@ const HeroCanvas = ({images}: {images: HeroImage[]}) => {
         newRenderedPortraits.left.push({
           ...rp,
           position: {
-            ...rp.position,
+            x: rp.position.x,
+            y: rp.position.y,
             z: rp.position.z - zDelta
           }
         })
@@ -76,7 +77,8 @@ const HeroCanvas = ({images}: {images: HeroImage[]}) => {
         newRenderedPortraits.right.push({
           ...rp,
           position: {
-            ...rp.position,
+            x: rp.position.x,
+            y: rp.position.y,
             z: rp.position.z - zDelta
           }
         })
@@ -116,7 +118,7 @@ const HeroCanvas = ({images}: {images: HeroImage[]}) => {
     <Portrait 
         key={p.index} 
         side={p.side}
-        position={p.position.z} 
+        position={p.position} 
         image={p.image} 
         blog={p.blog} 
         onMouseEnter={() => onMouseHoverEvent({side: p.side, index: p.index})} 

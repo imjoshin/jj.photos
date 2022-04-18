@@ -1,9 +1,10 @@
 /** @jsx jsx */
 import { Suspense } from "react"
 import { jsx } from "theme-ui"
-import HeroCanvas from "./canvas"
 import { Canvas } from "react-three-fiber"
 import { ParallaxLayer } from "@react-spring/parallax"
+import HeroCanvas from "./canvas"
+import Overlay from "./overlay"
 import "./index.css"
 
 export interface HeroImage {
@@ -24,7 +25,7 @@ const Hero = ({ offset, factor = 1, images }: { offset: number; factor?: number,
       offset={offset}
       factor={factor}
     >
-      {/* TODO make this loading better */}
+      <Overlay className="hero-overlay" />
       <div className="hero-canvas">
         <Canvas>
           <HeroCanvas images={images} />

@@ -1,6 +1,6 @@
-export const PORTRAIT_ROTATION_MODIFIER = 2.1
-export const PORTRAIT_POSITION_MODIFER = {
-  x: 2,
+export const PORTRAIT_ROTATION_MODIFIER = 2.3
+export const PORTRAIT_START_POSITION = {
+  x: 2.5,
   y: 0,
   z: 1.3,
 }

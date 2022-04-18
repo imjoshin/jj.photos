@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { useFrame } from "react-three-fiber"
 import Camera from "./camera"
 import Portrait from "./portrait"
-import { PORTRAIT_POSITION_MODIFER, PORTRAIT_SPEED, RENDERED_PORTRAITS_COUNT, CAMERA_DISTANCE, PORTRAIT_DISTANCE } from "./const"
+import { PORTRAIT_START_POSITION, PORTRAIT_SPEED, RENDERED_PORTRAITS_COUNT, CAMERA_DISTANCE, PORTRAIT_DISTANCE } from "./const"
 import { HeroImage } from '.'
 
 // TODO clean up all these types
@@ -27,11 +27,12 @@ const createPortraitObject = (
   zPos: number,
 ) => {
   const randomImage = images[Math.floor(images.length * Math.random())]
+  
   return {
     index,
     position: {
-      x: PORTRAIT_POSITION_MODIFER.x * (side === 'left' ? -1 : 1), 
-      y: PORTRAIT_POSITION_MODIFER.y,
+      x: PORTRAIT_START_POSITION.x * (side === 'left' ? -1 : 1), 
+      y: PORTRAIT_START_POSITION.y,
       z: zPos
     },
     image: randomImage.src,
@@ -61,12 +62,15 @@ const HeroCanvas = ({images}: {images: HeroImage[]}) => {
   
     renderedPortraits.current.left.forEach(rp => {
       if (rp.position.z > -1 * CAMERA_DISTANCE - 2) {
+        const z = rp.position.z - zDelta
+        const x = -1 * (.2 * z + 2.24)
+
         newRenderedPortraits.left.push({
           ...rp,
           position: {
-            x: rp.position.x,
+            x,
             y: rp.position.y,
-            z: rp.position.z - zDelta
+            z
           }
         })
       }
@@ -74,12 +78,15 @@ const HeroCanvas = ({images}: {images: HeroImage[]}) => {
   
     renderedPortraits.current.right.forEach(rp => {
       if (rp.position.z > -1 * CAMERA_DISTANCE - 2) {
+        const z = rp.position.z - zDelta
+        const x = .2 * z + 2.24
+
         newRenderedPortraits.right.push({
           ...rp,
           position: {
-            x: rp.position.x,
+            x,
             y: rp.position.y,
-            z: rp.position.z - zDelta
+            z
           }
         })
       }
@@ -87,6 +94,11 @@ const HeroCanvas = ({images}: {images: HeroImage[]}) => {
   
     while(newRenderedPortraits.left.length < RENDERED_PORTRAITS_COUNT) {
       const lastPosition = newRenderedPortraits.left[newRenderedPortraits.left.length - 1]?.position.z || (-1 * CAMERA_DISTANCE + 1)
+
+      if (lastPosition + PORTRAIT_DISTANCE > PORTRAIT_START_POSITION.z) {
+        break
+      }
+
       newRenderedPortraits.left.push(createPortraitObject(
         images,
         portraitCount.current++,
@@ -97,6 +109,11 @@ const HeroCanvas = ({images}: {images: HeroImage[]}) => {
   
     while(newRenderedPortraits.right.length < RENDERED_PORTRAITS_COUNT) {
       const lastPosition = newRenderedPortraits.right[newRenderedPortraits.right.length - 1]?.position.z || (-1 * CAMERA_DISTANCE + 1)
+      
+      if (lastPosition + PORTRAIT_DISTANCE > PORTRAIT_START_POSITION.z) {
+        break
+      }
+
       newRenderedPortraits.right.push(createPortraitObject(
         images,
         portraitCount.current++,

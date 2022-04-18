@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { useFrame, useThree } from "react-three-fiber"
 import { useState, useRef, useLayoutEffect, useEffect } from "react"
 import { useCursor, MeshReflectorMaterial, Image, Text, Environment } from '@react-three/drei'
-import { PORTRAIT_ROTATION_MODIFIER, PORTRAIT_POSITION_MODIFER } from "./const"
+import { PORTRAIT_ROTATION_MODIFIER, PORTRAIT_START_POSITION } from "./const"
 import { navigate } from "gatsby"
 import { Suspense } from "react"
 

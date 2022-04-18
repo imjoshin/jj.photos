@@ -128,7 +128,7 @@ const HeroCanvas = ({images}: {images: HeroImage[]}) => {
         'right',
         nextPosition
       ))
-      
+
       nextImage.current = images[Math.floor(images.length * Math.random())]
     }
   
@@ -153,7 +153,7 @@ const HeroCanvas = ({images}: {images: HeroImage[]}) => {
   )
   
   return <group>
-      <Camera fov={75} near={0.1} far={CAMERA_DISTANCE} position={[0, 0.5, 0]} />
+      <Camera fov={65} near={0.1} far={CAMERA_DISTANCE} position={[0, 0.5, 0]} />
       {/* <pointLight position={[10, 10, 10]} /> */}
       <ambientLight intensity={0.8} />
       {portraits}

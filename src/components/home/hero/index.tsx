@@ -9,6 +9,7 @@ import "./index.css"
 export interface HeroImage {
   src: string,
   blog: string,
+  aspectRatio: number,
 }
 
 const Hero = ({ offset, factor = 1, images }: { offset: number; factor?: number, images: HeroImage[] }) => (

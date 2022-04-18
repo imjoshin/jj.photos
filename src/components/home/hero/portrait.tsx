@@ -2,9 +2,10 @@ import * as THREE from 'three'
 import { useFrame, useThree } from "react-three-fiber"
 import { useState, useRef, useLayoutEffect, useEffect } from "react"
 import { useCursor, MeshReflectorMaterial, Image, Text, Environment } from '@react-three/drei'
-import { PORTRAIT_ROTATION_MODIFIER, PORTRAIT_START_POSITION } from "./const"
+import { PORTRAIT_ROTATION_MODIFIER, PORTRAIT_SCALE } from "./const"
 import { navigate } from "gatsby"
 import { Suspense } from "react"
+import { HeroImage } from '.'
 
 
 // Huge credit to Paul Henschel for the start of this frame.
@@ -12,8 +13,7 @@ import { Suspense } from "react"
 
 interface PortraitProps {
   side: "left" | "right",
-  image: string,
-  blog: string,
+  image: HeroImage,
   position: {
     x: number,
     y: number,
@@ -55,17 +55,20 @@ const Portrait = (props: PortraitProps) => {
     group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, hovered ? frameRotation / 1.5 : frameRotation, 0.1)
   })
 
-  const position = [props.position.x, props.position.y, props.position.z]
+  const groupPosition = [props.position.x, props.position.y, props.position.z]
+
+  const meshScale = [props.image.aspectRatio * PORTRAIT_SCALE, 1 * PORTRAIT_SCALE, 0.04]
+  const meshPosition = [0, PORTRAIT_SCALE / 2, 0]
 
   return (
     <Suspense fallback={<group></group>}>
-      <group ref={group} position={position}>
+      <group ref={group} position={groupPosition}>
         <mesh
           onPointerOver={(e) => (e.stopPropagation(), hover(true), props.onMouseEnter())}
           onPointerOut={() => (hover(false), props.onMouseExit())}
-          onPointerUp={() => navigate(props.blog)}
-          scale={[1, GOLDENRATIO, 0.04]}
-          position={[0, GOLDENRATIO / 2, 0]}>
+          onPointerUp={() => navigate(props.image.blog)}
+          scale={meshScale}
+          position={meshPosition}>
           <boxGeometry />
           <meshStandardMaterial color="#151515" metalness={0.5} roughness={0.5} envMapIntensity={2} />
           <mesh ref={frame} raycast={() => null} scale={[0.93, 0.95, 0.93]} position={[0, 0, 0.2]}>
@@ -73,7 +76,7 @@ const Portrait = (props: PortraitProps) => {
             <meshBasicMaterial toneMapped={false} fog={false} />
           </mesh>
           {/* @ts-ignore */}
-          <Image raycast={() => null} ref={image} position={[0, 0, 0.7]} url={props.image} form />
+          <Image raycast={() => null} ref={image} position={[0, 0, 0.7]} url={props.image.src} form />
         </mesh>
       </group>
     </Suspense>

@@ -13,10 +13,8 @@ const Home = ({data}) => {
     .map(sharp => ({
       src: sharp.node.fluid.src,
       blog: `/${sharp.node.fields.relativeDirectory}`,
+      aspectRatio: sharp.node.fluid.aspectRatio
     }))
-    .map(value => ({ value, sort: Math.random() }))
-    .sort((a, b) => a.sort - b.sort)
-    .map(({ value }) => value)
 
   return (
     <Layout>
@@ -30,7 +28,6 @@ const Home = ({data}) => {
     </Layout>
   )
 }
-  
 
 export const query = graphql`
   query {
@@ -40,8 +37,9 @@ export const query = graphql`
       edges {
         node {
           id
-          fluid(maxWidth: 1000, maxHeight: 1000) {
-            src
+          fluid {
+            src,
+            aspectRatio
           }
           fields {
             relativeDirectory

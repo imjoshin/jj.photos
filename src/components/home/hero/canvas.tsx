@@ -15,18 +15,16 @@ interface RenderedPortrait {
     y: number,
     z: number,
   },
-  image: string,
-  blog: string,
   side: 'left' | 'right',
+  image: HeroImage,
 }
 
 const createPortraitObject = (
-  images: HeroImage[],
+  image: HeroImage,
   index: number,
   side: 'left' | 'right',
   zPos: number,
 ) => {
-  const randomImage = images[Math.floor(images.length * Math.random())]
   
   return {
     index,
@@ -35,9 +33,8 @@ const createPortraitObject = (
       y: PORTRAIT_START_POSITION.y,
       z: zPos
     },
-    image: randomImage.src,
-    blog: randomImage.blog,
     side,
+    image,
   }
 }
 
@@ -93,32 +90,42 @@ const HeroCanvas = ({images}: {images: HeroImage[]}) => {
     })
   
     while(newRenderedPortraits.left.length < RENDERED_PORTRAITS_COUNT) {
-      const lastPosition = newRenderedPortraits.left[newRenderedPortraits.left.length - 1]?.position.z || (-1 * CAMERA_DISTANCE + 1)
+      const lastPortrait = newRenderedPortraits.left[newRenderedPortraits.left.length - 1]
+      const lastImage = lastPortrait?.image
+      const lastPosition = lastPortrait?.position.z || (-1 * CAMERA_DISTANCE + 1)
 
-      if (lastPosition + PORTRAIT_DISTANCE > PORTRAIT_START_POSITION.z) {
+      const nextImage = images[Math.floor(images.length * Math.random())]
+      const nextPosition = lastPosition + PORTRAIT_DISTANCE + (1.4 * (nextImage?.aspectRatio || 0)) / 2 + (1.4 * (lastImage?.aspectRatio || 0)) / 2
+
+      if (nextPosition > PORTRAIT_START_POSITION.z) {
         break
       }
 
       newRenderedPortraits.left.push(createPortraitObject(
-        images,
+        nextImage,
         portraitCount.current++,
         'left',
-        lastPosition + PORTRAIT_DISTANCE
+        nextPosition
       ))
     }
   
     while(newRenderedPortraits.right.length < RENDERED_PORTRAITS_COUNT) {
-      const lastPosition = newRenderedPortraits.right[newRenderedPortraits.right.length - 1]?.position.z || (-1 * CAMERA_DISTANCE + 1)
-      
-      if (lastPosition + PORTRAIT_DISTANCE > PORTRAIT_START_POSITION.z) {
+      const lastPortrait = newRenderedPortraits.right[newRenderedPortraits.right.length - 1]
+      const lastImage = lastPortrait?.image
+      const lastPosition = lastPortrait?.position.z || (-1 * CAMERA_DISTANCE + 1)
+
+      const nextImage = images[Math.floor(images.length * Math.random())]
+      const nextPosition = lastPosition + PORTRAIT_DISTANCE + (1.4 * (nextImage?.aspectRatio || 0)) / 2 + (1.4 * (lastImage?.aspectRatio || 0)) / 2
+
+      if (nextPosition > PORTRAIT_START_POSITION.z) {
         break
       }
 
       newRenderedPortraits.right.push(createPortraitObject(
-        images,
+        nextImage,
         portraitCount.current++,
         'right',
-        lastPosition + PORTRAIT_DISTANCE
+        nextPosition
       ))
     }
   
@@ -133,14 +140,13 @@ const HeroCanvas = ({images}: {images: HeroImage[]}) => {
 
   const portraits = renderedPortraits.current.left.concat(renderedPortraits.current.right).map(p => 
     <Portrait 
-        key={p.index} 
-        side={p.side}
-        position={p.position} 
-        image={p.image} 
-        blog={p.blog} 
-        onMouseEnter={() => onMouseHoverEvent({side: p.side, index: p.index})} 
-        onMouseExit={() => onMouseHoverEvent(null)}
-      />
+      key={p.index} 
+      side={p.side}
+      position={p.position} 
+      image={p.image} 
+      onMouseEnter={() => onMouseHoverEvent({side: p.side, index: p.index})} 
+      onMouseExit={() => onMouseHoverEvent(null)}
+    />
   )
   
   return <group>

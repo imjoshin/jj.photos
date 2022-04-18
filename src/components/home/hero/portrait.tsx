@@ -49,9 +49,12 @@ const Portrait = (props: PortraitProps) => {
       return
     }
 
+    const xScale = 1 - (props.image.aspectRatio > 1 ? (.07 * props.image.aspectRatio) : (.1 / props.image.aspectRatio))
+    const yScale = 1 - (props.image.aspectRatio > 1 ? (.15 / props.image.aspectRatio) : (.15 * props.image.aspectRatio))
+
     image.current.material.zoom = 1 + (Math.sin(rnd + state.clock.elapsedTime / 5) + 1) / 5
-    image.current.scale.x = THREE.MathUtils.lerp(image.current.scale.x, 0.85 * (hovered ? 0.85 : 1), 0.1)
-    image.current.scale.y = THREE.MathUtils.lerp(image.current.scale.y, 0.9 * (hovered ? 0.905 : 1), 0.1)
+    image.current.scale.x = THREE.MathUtils.lerp(image.current.scale.x, xScale * (hovered ? xScale : 1), 0.1)
+    image.current.scale.y = THREE.MathUtils.lerp(image.current.scale.y, yScale * (hovered ? yScale : 1), 0.1)
     group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, hovered ? frameRotation / 1.5 : frameRotation, 0.1)
   })
 

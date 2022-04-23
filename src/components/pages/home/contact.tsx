@@ -3,9 +3,9 @@ import { jsx } from "theme-ui"
 import { Divider } from "../../elements/divider"
 import { Inner } from "../../elements/inner"
 import { Content } from "../../elements/content"
-import Svg from "../../svg"
+import { Svg } from "../../elements/svg"
 import { UpDown, UpDownWide, waveAnimation } from "../../../styles/animations"
-import Footer from "../../footer"
+import { Footer } from "../../elements/footer"
 import { Typography } from "../../elements/typography"
 
 const Contact = ({ offset, factor = 1 }: { offset: number; factor?: number }) => (

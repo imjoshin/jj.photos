@@ -1,5 +1,6 @@
 import React from "react"
 import { BlogSummary } from "../../../types/pages";
+import { Footer } from "../../elements/footer";
 
 interface BlogProps {
   blogs: BlogSummary[],
@@ -18,5 +19,6 @@ export const Blog = ({blogs}: BlogProps) => {
 
   return <div>
     {display}
+    <Footer />
   </div>
 }

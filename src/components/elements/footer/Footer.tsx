@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { Box, Flex, Link, useColorMode, jsx } from "theme-ui"
 
-const Footer = () => {
+export const Footer = () => {
   // const [colorMode, setColorMode] = useColorMode()
   // const isDark = colorMode === `dark`
   // const toggleColorMode = (e: any) => {
@@ -44,5 +44,3 @@ const Footer = () => {
     </Box>
   )
 }
-
-export default Footer

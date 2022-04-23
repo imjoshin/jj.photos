@@ -4,7 +4,7 @@ import { Divider } from "../../elements/divider"
 import { Inner } from "../../elements/inner"
 import { Content } from "../../elements/content"
 import ProjectCard from "./project-card"
-import Svg from "../../svg"
+import { Svg } from "../../elements/svg"
 import { UpDown, UpDownWide } from "../../../styles/animations"
 import Colors from "../../../styles/colors";
 import { Typography } from "../../elements/typography"

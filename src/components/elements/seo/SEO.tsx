@@ -1,7 +1,7 @@
 import * as React from "react"
 import { Helmet } from "react-helmet"
 import { withPrefix } from "gatsby"
-import useSiteMetadata from "../hooks/use-site-metadata"
+import useSiteMetadata from "../../../hooks/use-site-metadata"
 
 type Props = {
   title?: string
@@ -11,7 +11,7 @@ type Props = {
   children?: React.ReactNode
 }
 
-const SEO = ({ title = ``, description = ``, pathname = ``, image = ``, children = null }: Props) => {
+export const SEO = ({ title = ``, description = ``, pathname = ``, image = ``, children = null }: Props) => {
   const site = useSiteMetadata()
 
   const {
@@ -48,7 +48,6 @@ const SEO = ({ title = ``, description = ``, pathname = ``, image = ``, children
       <meta name="twitter:image" content={seo.image} />
       <meta name="twitter:image:alt" content={seo.description} />
       <meta name="twitter:creator" content={author} />
-      <meta name="gatsby-theme" content="@lekoarts/gatsby-theme-cara" />
       <link rel="icon" type="image/png" sizes="32x32" href={withPrefix(`/favicon-32x32.png`)} />
       <link rel="icon" type="image/png" sizes="16x16" href={withPrefix(`/favicon-16x16.png`)} />
       <link rel="apple-touch-icon" sizes="180x180" href={withPrefix(`/apple-touch-icon.png`)} />
@@ -56,5 +55,3 @@ const SEO = ({ title = ``, description = ``, pathname = ``, image = ``, children
     </Helmet>
   )
 }
-
-export default SEO

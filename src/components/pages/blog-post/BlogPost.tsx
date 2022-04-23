@@ -1,6 +1,7 @@
 import React from "react"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import { Blog } from "../../../types/pages";
+import { Footer } from "../../elements/footer";
 
 interface BlogPostProps {
   blog: Blog
@@ -14,6 +15,7 @@ export const BlogPost = ({blog}: BlogPostProps) => {
       <div>
         <MDXRenderer>{blog.body}</MDXRenderer>
       </div>
+      <Footer />
     </div>
   )
 }

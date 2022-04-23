@@ -1,7 +1,7 @@
 import { HeroImage } from "./hero";
 import * as React from "react"
 import { Parallax } from "@react-spring/parallax"
-import Layout from "../../layout"
+import { Layout } from "../../elements/layout"
 import { Hero } from "./hero"
 import Intro from "./intro"
 import Blog from "./blog"

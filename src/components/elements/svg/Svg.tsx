@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import * as React from "react"
 import { jsx } from "theme-ui"
-import { hidden } from "../styles/utils"
+import { hidden } from "../../../styles/utils"
 
 const icons = {
   triangle: {
@@ -79,7 +79,7 @@ type SVGProps = {
   hiddenMobile?: boolean
 }
 
-const Svg = ({ stroke = false, color = ``, width, icon, left, top, hiddenMobile = false }: SVGProps) => (
+export const Svg = ({ stroke = false, color = ``, width, icon, left, top, hiddenMobile = false }: SVGProps) => (
   <svg
     sx={{
       position: `absolute`,
@@ -96,5 +96,3 @@ const Svg = ({ stroke = false, color = ``, width, icon, left, top, hiddenMobile 
     {icons[icon].shape}
   </svg>
 )
-
-export default Svg

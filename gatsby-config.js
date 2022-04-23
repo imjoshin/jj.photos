@@ -7,7 +7,7 @@ module.exports = {
     siteDescription: "",
     siteLanguage: "en",
     siteImage: "/images/icon.png",
-    author: "",
+    author: "0xJ05H",
     basePath: "/",
   },
   plugins: [

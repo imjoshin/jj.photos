@@ -1,24 +1,17 @@
 import React from "react"
 import { graphql } from "gatsby"
+import { Blog } from "../../components/pages/blog";
+import { BlogSummary } from "../../types/pages";
 
 export default function Blogs({data}) {
-  const { edges } = data.allMdx
+  const blogs = data.allMdx.edges.map(({node}) => ({
+    title: node.frontmatter.title,
+    date: node.frontmatter.date,
+    slug: node.frontmatter.slug,
+    excerpt: node.frontmatter.excerpt
+  } as BlogSummary));
 
-  const blogs = edges.map(({node}) => (
-    <>
-      <h1><a href={`/blog/${node.frontmatter.slug}`}>{node.frontmatter.title}</a></h1>
-      <h2>{node.frontmatter.date}</h2>
-      <div>
-        {node.excerpt}
-      </div>
-    </>
-  ));
-
-  return (
-    <div>
-      {blogs}
-    </div>
-  )
+  return <Blog blogs={blogs} />
 }
 
 export const pageQuery = graphql`

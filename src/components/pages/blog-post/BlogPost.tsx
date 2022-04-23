@@ -12,6 +12,7 @@ export const BlogPost = ({blog}: BlogPostProps) => {
     <div>
       <h1>{blog.title}</h1>
       <h2>{blog.date}</h2>
+      <h3>{blog.hero}</h3>
       <div>
         <MDXRenderer>{blog.body}</MDXRenderer>
       </div>

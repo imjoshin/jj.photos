@@ -9,6 +9,7 @@ export default function BlogTemplate({data}) {
   const blog: Blog = {
     title: frontmatter.title,
     date: frontmatter.date,
+    hero: frontmatter.hero.publicURL,
     body
   }
   
@@ -23,6 +24,9 @@ export const pageQuery = graphql`
         date(formatString: "MMMM DD, YYYY")
         slug
         title
+        hero {
+          publicURL
+        }
       }
     }
   }

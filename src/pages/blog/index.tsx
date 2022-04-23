@@ -8,7 +8,8 @@ export default function Blogs({data}) {
     title: node.frontmatter.title,
     date: node.frontmatter.date,
     slug: node.frontmatter.slug,
-    excerpt: node.frontmatter.excerpt
+    excerpt: node.frontmatter.excerpt,
+    hero: node.frontmatter.hero.publicURL,
   }));
 
   return <Blog blogs={blogs} />
@@ -24,6 +25,9 @@ query {
             date(formatString: "MMMM DD, YYYY")
             slug
             title
+            hero {
+              publicURL
+            }
           }
         }
       }

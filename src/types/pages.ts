@@ -3,10 +3,12 @@ export type BlogSummary = {
   date: string
   slug: string
   excerpt: string
+  hero: string
 }
 
 export type Blog = {
   title: string
   date: string
   body: string
+  hero: string
 }

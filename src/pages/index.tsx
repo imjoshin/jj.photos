@@ -1,14 +1,8 @@
 import * as React from "react"
-import { Parallax } from "@react-spring/parallax"
-import Layout from "../components/layout"
-import Hero from "../components/pages/home/hero"
-import Intro from "../components/pages/home/intro"
-import Blog from "../components/pages/home/blog"
-import About from "../components/pages/home/about"
-import Contact from "../components/pages/home/contact"
+import { Home } from "../components/pages/home"
 import { graphql } from "gatsby"
 
-const Home = ({data}) => { 
+const HomePage = ({data}) => { 
   const heroImages = data.allImageSharp.edges
     .map(sharp => ({
       src: sharp.node.fluid.src,
@@ -16,17 +10,7 @@ const Home = ({data}) => {
       aspectRatio: sharp.node.fluid.aspectRatio
     }))
 
-  return (
-    <Layout>
-      <Parallax pages={6}>
-        <Hero offset={0} factor={1} images={heroImages} />
-        <Intro offset={1} factor={1} />
-        <Blog offset={2} factor={2} />
-        <About offset={4} factor={1} />
-        <Contact offset={5} factor={1} />
-      </Parallax>
-    </Layout>
-  )
+  return <Home images={heroImages} />
 }
 
 export const query = graphql`
@@ -50,4 +34,4 @@ export const query = graphql`
   }
 `
 
-export default Home
+export default HomePage

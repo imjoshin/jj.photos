@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import { Divider } from "../../../elements/divider/divider"
-import { Inner } from "../../../elements/inner/inner"
-import { Content } from "../../../elements/content/content"
+import { Divider } from "../../elements/divider/divider"
+import { Inner } from "../../elements/inner/inner"
+import { Content } from "../../elements/content/content"
 import ProjectCard from "./project-card"
 import Svg from "../../svg"
 import { UpDown, UpDownWide } from "../../../styles/animations"

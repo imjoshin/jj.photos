@@ -5,7 +5,7 @@ interface OverlayProps {
   className: string,
 }
 
-const Overlay = (props: OverlayProps) => {
+export const Overlay = (props: OverlayProps) => {
   return (
     <div className={props.className}>
       <div className="overlay-container">
@@ -16,5 +16,3 @@ const Overlay = (props: OverlayProps) => {
     </div>
   )
 }
-
-export default Overlay

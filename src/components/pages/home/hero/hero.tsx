@@ -4,8 +4,8 @@ import { jsx } from "theme-ui"
 import { Canvas } from "react-three-fiber"
 import { ParallaxLayer } from "@react-spring/parallax"
 import HeroCanvas from "./canvas"
-import Overlay from "./overlay"
-import "./index.css"
+import { Overlay } from "./overlay"
+import "./hero.css"
 
 export interface HeroImage {
   src: string,
@@ -13,7 +13,7 @@ export interface HeroImage {
   aspectRatio: number,
 }
 
-const Hero = ({ offset, factor = 1, images }: { offset: number; factor?: number, images: HeroImage[] }) => (
+export const Hero = ({ offset, factor = 1, images }: { offset: number; factor?: number, images: HeroImage[] }) => (
   <div>
     <ParallaxLayer
       sx={{
@@ -34,5 +34,3 @@ const Hero = ({ offset, factor = 1, images }: { offset: number; factor?: number,
     </ParallaxLayer>
   </div>
 )
-
-export default Hero

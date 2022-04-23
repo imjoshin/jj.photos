@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     siteTitle: "JJ Photos",
     siteTitleAlt: "JJ Photos",
-    siteHeadline: "JJ Photo",
+    siteHeadline: "JJ Photos",
     siteUrl: "https://jj.photos",
     siteDescription: "",
     siteLanguage: "en",
@@ -56,7 +56,7 @@ module.exports = {
       resolve: "gatsby-source-filesystem",
       options: {
         name: "blog",
-        path: "./src/markdown/blog/",
+        path: "./src/blog/",
       },
       __key: "blog",
     },

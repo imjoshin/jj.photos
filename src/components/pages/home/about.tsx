@@ -4,9 +4,8 @@ import { Inner } from "../../elements/inner/inner"
 import { Content } from "../../elements/content/content"
 import Svg from "../../svg"
 import { UpDown, UpDownWide } from "../../../styles/animations"
-// @ts-ignore
-import AboutMDX from "../../../markdown/home/about"
 import Colors from "../../../styles/colors"
+import { Typography } from "../../elements/typography"
 
 const About = ({ offset, factor = 1 }: { offset: number; factor?: number }) => (
   <div>
@@ -38,7 +37,13 @@ const About = ({ offset, factor = 1 }: { offset: number; factor?: number }) => (
     </Divider>
     <Content speed={0.4} offset={offset} factor={factor}>
       <Inner>
-        <AboutMDX />
+        <Typography variant="h2">Hello!</Typography>
+        <Typography variant="blockquote">
+          Content content content content content content content content content content content content content
+        </Typography>
+        <Typography variant="p">
+          Content content content content content content content content content content content content content content content content content content content content content content content content content
+        </Typography>
       </Inner>
     </Content>
   </div>

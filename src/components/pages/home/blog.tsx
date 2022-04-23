@@ -7,8 +7,7 @@ import ProjectCard from "./project-card"
 import Svg from "../../svg"
 import { UpDown, UpDownWide } from "../../../styles/animations"
 import Colors from "../../../styles/colors";
-// @ts-ignore
-import BlogMDX from "../../../markdown/home/blog"
+import { Typography } from "../../elements/typography"
 
 const Blog = ({ offset, factor = 2 }: { offset: number; factor?: number }) => (
   <div>
@@ -29,7 +28,7 @@ const Blog = ({ offset, factor = 2 }: { offset: number; factor?: number }) => (
             h2: { gridColumn: `-1/1`, color: `white !important` },
           }}
         >
-          <BlogMDX />
+          <Typography variant="h2">Blog</Typography>
           <ProjectCard
             title="Tips & Tricks for Gatsby"
             link="https://www.lekoarts.de/gatsby/tips-and-tricks-for-gatsby?utm_source=cara&utm_medium=Theme"

@@ -6,14 +6,18 @@ import { Content } from "../../elements/content/content"
 import Svg from "../../svg"
 import { UpDown, UpDownWide, waveAnimation } from "../../../styles/animations"
 import Footer from "../../footer"
-// @ts-ignore
-import ContactMDX from "../../../markdown/home/contact"
+import { Typography } from "../../elements/typography"
 
 const Contact = ({ offset, factor = 1 }: { offset: number; factor?: number }) => (
   <div>
     <Content speed={0.4} offset={offset} factor={factor}>
       <Inner>
-        <ContactMDX />
+        <Typography variant="h2">
+          Get in touch
+        </Typography>
+        <Typography variant="p">
+          Content content content content content content content content content content
+        </Typography>
       </Inner>
       <Footer />
     </Content>

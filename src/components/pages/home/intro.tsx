@@ -3,10 +3,9 @@ import { jsx } from "theme-ui"
 import { Divider } from "../../elements/divider/divider"
 import { Inner } from "../../elements/inner/inner"
 import { Content } from "../../elements/content/content"
+import { Typography } from "../../elements/typography"
 import Svg from "../../svg"
 import { UpDown, UpDownWide } from "../../../styles/animations"
-// @ts-ignore
-import IntroMDX from "../../../markdown/home/intro"
 import Colors from '../../../styles/colors';
 
 const Hero = ({ offset, factor = 1 }: { offset: number; factor?: number }) => (
@@ -41,7 +40,10 @@ const Hero = ({ offset, factor = 1 }: { offset: number; factor?: number }) => (
     </Divider>
     <Content sx={{ variant: `texts.bigger` }} speed={0.4} offset={offset} factor={factor}>
       <Inner>
-        <IntroMDX />
+        <Typography variant="h1">Hello!</Typography>
+        <Typography variant="p">
+          Content content content content content content content content content content content
+        </Typography>
       </Inner>
     </Content>
   </div>

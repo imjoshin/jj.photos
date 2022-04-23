@@ -1,14 +1,14 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import Divider from "../../elements/divider"
-import Inner from "../../elements/inner"
-import Content from "../../elements/content"
+import { Divider } from "../../../elements/divider/divider"
+import { Inner } from "../../../elements/inner/inner"
+import { Content } from "../../../elements/content/content"
 import ProjectCard from "./project-card"
-import Svg from "../svg"
-import { UpDown, UpDownWide } from "../../styles/animations"
-import Colors from "../../styles/colors";
+import Svg from "../../svg"
+import { UpDown, UpDownWide } from "../../../styles/animations"
+import Colors from "../../../styles/colors";
 // @ts-ignore
-import BlogMDX from "../../markdown/home/blog"
+import BlogMDX from "../../../markdown/home/blog"
 
 const Blog = ({ offset, factor = 2 }: { offset: number; factor?: number }) => (
   <div>

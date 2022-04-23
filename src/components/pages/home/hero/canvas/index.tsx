@@ -153,7 +153,7 @@ const HeroCanvas = ({images}: {images: HeroImage[]}) => {
   )
   
   return <group>
-      <Camera fov={65} near={0.1} far={CAMERA_DISTANCE} position={[0, 0.5, 0]} />
+      <Camera fov={60} near={0.1} far={CAMERA_DISTANCE} position={[0, 0.5, 0]} />
       {/* <pointLight position={[10, 10, 10]} /> */}
       <ambientLight intensity={0.8} />
       {portraits}

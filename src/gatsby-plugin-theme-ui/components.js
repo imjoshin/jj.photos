@@ -1,5 +1,5 @@
 import * as React from "react"
-import ProjectCard from "../components/home/project-card"
+import ProjectCard from "../components/pages/home/project-card"
 
 const components = {
   // eslint-disable-next-line react/display-name

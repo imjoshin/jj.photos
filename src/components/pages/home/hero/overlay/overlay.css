@@ -15,7 +15,7 @@
 }
 
 .overlay-logo {
-  background-image: url("../../../../images/icon.png");
+  background-image: url("../../../../../images/icon.png");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;

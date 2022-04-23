@@ -1,5 +1,5 @@
 import "./overlay.css"
-import Logo from "../../../../images/icon.png"
+import Logo from "../../../../../images/icon.png"
 
 interface OverlayProps {
   className: string,

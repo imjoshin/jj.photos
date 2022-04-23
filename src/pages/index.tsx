@@ -1,11 +1,11 @@
 import * as React from "react"
 import { Parallax } from "@react-spring/parallax"
 import Layout from "../components/layout"
-import Hero from "../components/home/hero"
-import Intro from "../components/home/intro"
-import Blog from "../components/home/blog"
-import About from "../components/home/about"
-import Contact from "../components/home/contact"
+import Hero from "../components/pages/home/hero"
+import Intro from "../components/pages/home/intro"
+import Blog from "../components/pages/home/blog"
+import About from "../components/pages/home/about"
+import Contact from "../components/pages/home/contact"
 import { graphql } from "gatsby"
 
 const Home = ({data}) => { 

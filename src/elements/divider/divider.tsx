@@ -13,7 +13,7 @@ type DividerProps = {
   factor?: number
 }
 
-const Divider = ({
+export const Divider = ({
   speed,
   offset,
   factor = 1,
@@ -44,5 +44,3 @@ const Divider = ({
     {children}
   </ParallaxLayer>
 )
-
-export default Divider

@@ -1,13 +1,13 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import Divider from "../../elements/divider"
-import Inner from "../../elements/inner"
-import Content from "../../elements/content"
-import Svg from "../svg"
-import { UpDown, UpDownWide, waveAnimation } from "../../styles/animations"
-import Footer from "../footer"
+import { Divider } from "../../../elements/divider/divider"
+import { Inner } from "../../../elements/inner/inner"
+import { Content } from "../../../elements/content/content"
+import Svg from "../../svg"
+import { UpDown, UpDownWide, waveAnimation } from "../../../styles/animations"
+import Footer from "../../footer"
 // @ts-ignore
-import ContactMDX from "../../markdown/home/contact"
+import ContactMDX from "../../../markdown/home/contact"
 
 const Contact = ({ offset, factor = 1 }: { offset: number; factor?: number }) => (
   <div>

@@ -1,13 +1,13 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import Divider from "../../elements/divider"
-import Inner from "../../elements/inner"
-import Content from "../../elements/content"
-import Svg from "../svg"
-import { UpDown, UpDownWide } from "../../styles/animations"
+import { Divider } from "../../../elements/divider/divider"
+import { Inner } from "../../../elements/inner/inner"
+import { Content } from "../../../elements/content/content"
+import Svg from "../../svg"
+import { UpDown, UpDownWide } from "../../../styles/animations"
 // @ts-ignore
-import IntroMDX from "../../markdown/home/intro"
-import Colors from '../../styles/colors';
+import IntroMDX from "../../../markdown/home/intro"
+import Colors from '../../../styles/colors';
 
 const Hero = ({ offset, factor = 1 }: { offset: number; factor?: number }) => (
   <div>

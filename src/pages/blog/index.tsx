@@ -4,12 +4,12 @@ import { Blog } from "../../components/pages/blog";
 import { BlogSummary } from "../../types/pages";
 
 export default function Blogs({data}) {
-  const blogs = data.allMdx.edges.map(({node}) => ({
+  const blogs: BlogSummary[] = data.allMdx.edges.map(({node}) => ({
     title: node.frontmatter.title,
     date: node.frontmatter.date,
     slug: node.frontmatter.slug,
     excerpt: node.frontmatter.excerpt
-  } as BlogSummary));
+  }));
 
   return <Blog blogs={blogs} />
 }

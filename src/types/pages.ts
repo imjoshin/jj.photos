@@ -4,3 +4,9 @@ export type BlogSummary = {
   slug: string
   excerpt: string
 }
+
+export type Blog = {
+  title: string
+  date: string
+  body: string
+}

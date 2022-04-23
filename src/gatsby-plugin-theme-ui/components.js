@@ -1,4 +1,5 @@
 import * as React from "react"
+import { Image } from "../components/pages/blog-post/image"
 import ProjectCard from "../components/pages/home/project-card"
 
 const components = {
@@ -8,6 +9,10 @@ const components = {
       {children}
     </ProjectCard>
   ),
+
+  Image: ({src}) => (
+    <Image src={src} />
+  )
 }
 
 export default components

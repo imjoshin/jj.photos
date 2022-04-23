@@ -14,18 +14,13 @@ interface BlogPostProps {
 export const BlogPost = ({blog}: BlogPostProps) => {
   return (
     <Layout>
-      <Parallax pages={1}>
-        <Content speed={1} offset={0}>
-          <h1>{blog.title}</h1>
-          <h2>{blog.date}</h2>
-          <h3>{blog.hero}</h3>
-          <div>
-            <MDXRenderer>{blog.body}</MDXRenderer>
-          </div>
-          <Footer />
-        </Content>
-        <Divider speed={1.2} offset={0} />
-      </Parallax>
+        <h1>{blog.title}</h1>
+        <h2>{blog.date}</h2>
+        <h3>{blog.hero}</h3>
+        <div>
+          <MDXRenderer>{blog.body}</MDXRenderer>
+        </div>
+        <Footer />
     </Layout>
   )
 }

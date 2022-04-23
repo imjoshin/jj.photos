@@ -1,11 +1,9 @@
 import React from "react"
-import { Parallax } from "@react-spring/parallax"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import { Blog } from "../../../types/pages";
 import { Footer } from "../../elements/footer";
 import { Layout } from "../../elements/layout";
-import { Divider } from "../../elements/parallax/divider"
-import { Content } from "../../elements/parallax/content"
+import { Hero } from "./hero"
 
 interface BlogPostProps {
   blog: Blog
@@ -14,9 +12,7 @@ interface BlogPostProps {
 export const BlogPost = ({blog}: BlogPostProps) => {
   return (
     <Layout>
-        <h1>{blog.title}</h1>
-        <h2>{blog.date}</h2>
-        <h3>{blog.hero}</h3>
+        <Hero title={blog.title} date={blog.date} image={blog.hero} />
         <div>
           <MDXRenderer>{blog.body}</MDXRenderer>
         </div>

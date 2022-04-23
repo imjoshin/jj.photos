@@ -4,7 +4,7 @@ import { TextVariant } from "../../../types/theme"
 
 interface TypographyProps {
   variant: TextVariant,
-  children: string,
+  children: string | React.ReactNode,
 }
 
 export const Typography = ({variant, children}: TypographyProps) => {

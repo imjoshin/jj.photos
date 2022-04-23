@@ -1,1 +1,1 @@
-export { Inner } from "./inner"
+export { Inner } from "./Inner"

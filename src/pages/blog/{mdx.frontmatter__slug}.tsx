@@ -9,7 +9,7 @@ export default function BlogTemplate({data}) {
   const blog: Blog = {
     title: frontmatter.title,
     date: frontmatter.date,
-    hero: frontmatter.hero.publicURL,
+    hero: frontmatter.hero,
     body
   }
   
@@ -25,7 +25,13 @@ export const pageQuery = graphql`
         slug
         title
         hero {
-          publicURL
+          childImageSharp {
+            gatsbyImageData(
+              placeholder: BLURRED
+              formats: [AUTO, WEBP, AVIF]
+              layout: FULL_WIDTH
+            )
+          }
         }
       }
     }

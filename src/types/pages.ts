@@ -1,3 +1,5 @@
+import { ImageDataLike } from "gatsby-plugin-image"
+
 export type BlogSummary = {
   title: string
   date: string
@@ -10,5 +12,5 @@ export type Blog = {
   title: string
   date: string
   body: string
-  hero: string
+  hero: ImageDataLike
 }

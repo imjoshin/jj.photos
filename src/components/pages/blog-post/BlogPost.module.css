@@ -1,0 +1,9 @@
+.container {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.body {
+  max-width: 80%;
+}

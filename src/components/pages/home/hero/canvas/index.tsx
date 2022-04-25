@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { useCallback, useEffect, useRef, useState } from "react"
+import { Suspense, useCallback, useEffect, useRef, useState } from "react"
 import { useFrame } from "react-three-fiber"
 import Camera from "./camera"
 import Portrait from "./portrait"
@@ -152,13 +152,15 @@ const HeroCanvas = ({images}: {images: HeroImage[]}) => {
     />
   )
   
-  return <group>
+  return <Suspense fallback={<group></group>}>
+    <group>
       <Camera fov={60} near={0.1} far={CAMERA_DISTANCE} position={[0, 0.5, 0]} />
-      {/* <pointLight position={[10, 10, 10]} /> */}
-      <ambientLight intensity={0.8} />
+      <pointLight position={[0, 10, 10]} />
+      {/* <ambientLight intensity={0.5} /> */}
+      <hemisphereLight />
       {portraits}
-      {/* <Floor /> */}
-  </group>
+    </group>
+  </Suspense>
 }
 
 export default HeroCanvas

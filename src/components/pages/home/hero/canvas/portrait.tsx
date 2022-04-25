@@ -1,11 +1,13 @@
 import * as THREE from 'three'
-import { useFrame, useThree } from "react-three-fiber"
-import { useState, useRef, useLayoutEffect, useEffect } from "react"
-import { useCursor, MeshReflectorMaterial, Image, Text, Environment } from '@react-three/drei'
+import { useFrame, useLoader } from "react-three-fiber"
+import { useState, useRef, useEffect } from "react"
+import { useCursor, Image } from '@react-three/drei'
+import { TextureLoader } from 'three/src/loaders/TextureLoader'
 import { PORTRAIT_ROTATION_MODIFIER, PORTRAIT_SCALE } from "./const"
 import { navigate } from "gatsby"
 import { Suspense } from "react"
 import { HeroImage } from '.'
+import WoodTexture from "../../../../../images/wood2.jpg"
 
 
 // Huge credit to Paul Henschel for the start of this frame.
@@ -23,16 +25,13 @@ interface PortraitProps {
   onMouseExit: () => void,
 }
 
-// TODO remove this and account for picture width/height
-// this comes out to be the ratio of height:width
-const GOLDENRATIO = 1.61803398875
-
 const Portrait = (props: PortraitProps) => {
   const [hovered, hover] = useState(false)
   const [rnd] = useState(() => Math.random())
   const image = useRef<JSX.IntrinsicElements['mesh']>()
   const frame = useRef<JSX.IntrinsicElements['mesh']>()
   const group = useRef<JSX.IntrinsicElements['group']>()
+  const texture = useLoader(TextureLoader, WoodTexture)
 
   const frameRotation = Math.PI / PORTRAIT_ROTATION_MODIFIER * (props.side === 'left' ? 1 : -1)
 
@@ -43,7 +42,7 @@ const Portrait = (props: PortraitProps) => {
   }, [group.current])
 
   useCursor(hovered)
-  useFrame((state) => {
+  useFrame((state) => { 
     // @ts-ignore
     if (!image.current) {
       return
@@ -73,10 +72,10 @@ const Portrait = (props: PortraitProps) => {
           scale={meshScale}
           position={meshPosition}>
           <boxGeometry />
-          <meshStandardMaterial color="#151515" metalness={0.5} roughness={0.5} envMapIntensity={2} />
+          <meshPhongMaterial attach="material" map={texture} color={0x999999}/>  
           <mesh ref={frame} raycast={() => null} scale={[0.93, 0.95, 0.93]} position={[0, 0, 0.2]}>
             <boxGeometry />
-            <meshBasicMaterial toneMapped={false} fog={false} />
+            <meshPhongMaterial toneMapped={false} fog={false} />
           </mesh>
           {/* @ts-ignore */}
           <Image raycast={() => null} ref={image} position={[0, 0, 0.7]} url={props.image.src} form />

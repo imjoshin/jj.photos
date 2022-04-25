@@ -1,6 +1,5 @@
 .overlay-container {
   display: flex;
-  align-items: center;
   justify-content: center;
   height: 100%;
   width: 25%;
@@ -18,7 +17,7 @@
   background-image: url("../../../../../images/icon.png");
   background-repeat: no-repeat;
   background-size: contain;
-  background-position: center;
+  background-position-y: 3rem;
   width: 50%;
   height: 100%;
 }

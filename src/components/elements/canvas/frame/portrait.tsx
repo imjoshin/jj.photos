@@ -3,11 +3,11 @@ import { useFrame, useLoader } from "react-three-fiber"
 import { useState, useRef, useEffect } from "react"
 import { useCursor, Image } from '@react-three/drei'
 import { TextureLoader } from 'three/src/loaders/TextureLoader'
-import { PORTRAIT_ROTATION_MODIFIER, PORTRAIT_SCALE } from "./const"
+import { PORTRAIT_ROTATION_MODIFIER, PORTRAIT_SCALE } from "../../../pages/home/hero/canvas/const"
 import { navigate } from "gatsby"
 import { Suspense } from "react"
 import { HeroImage } from '.'
-import WoodTexture from "../../../../../images/wood2.jpg"
+import WoodTexture from "../../../../images/wood2.jpg"
 
 
 // Huge credit to Paul Henschel for the start of this frame.
@@ -25,7 +25,7 @@ interface PortraitProps {
   onMouseExit: () => void,
 }
 
-const Portrait = (props: PortraitProps) => {
+export const Portrait = (props: PortraitProps) => {
   const [hovered, hover] = useState(false)
   const [rnd] = useState(() => Math.random())
   const image = useRef<JSX.IntrinsicElements['mesh']>()
@@ -84,5 +84,3 @@ const Portrait = (props: PortraitProps) => {
     </Suspense>
   )
 }
-
-export default Portrait

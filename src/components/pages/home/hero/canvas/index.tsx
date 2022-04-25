@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { Suspense, useCallback, useEffect, useRef, useState } from "react"
 import { useFrame } from "react-three-fiber"
 import Camera from "./camera"
-import Portrait from "./portrait"
+import { Portrait } from "../../../../elements/canvas/frame/portrait"
 import { PORTRAIT_START_POSITION, PORTRAIT_SPEED, RENDERED_PORTRAITS_COUNT, CAMERA_DISTANCE, PORTRAIT_DISTANCE } from "./const"
 import { HeroImage } from '.'
 

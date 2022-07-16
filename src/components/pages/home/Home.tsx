@@ -1,27 +1,20 @@
-import { HeroImage } from "./hero";
 import * as React from "react"
-import { Parallax } from "@react-spring/parallax"
-import { Layout } from "../../elements/layout"
-import { Hero } from "./hero"
-import Intro from "./intro"
-import Blog from "./blog"
-import About from "./about"
-import Contact from "./contact"
+import * as styles from "./Home.module.css"
 
 interface HomeProps {
-  images: HeroImage[]
+  images: {
+    src: string,
+    blog: string,
+    aspectRatio: number,
+  }
 }
 
 export const Home = ({ images }: HomeProps) => {
-  return (
-    <Layout>
-      <Parallax pages={6}>
-        <Hero offset={0} factor={1} images={images} />
-        <Intro offset={1} factor={1} />
-        <Blog offset={2} factor={2} />
-        <About offset={4} factor={1} />
-        <Contact offset={5} factor={1} />
-      </Parallax>
-    </Layout>
-  )
+  const image = images[0]
+
+  return <div className={styles.home} style={{backgroundImage: `url(${image.src})`}}>
+    <div className={styles.content}>
+      TEST
+    </div>
+  </div>
 }

@@ -1,8 +1,6 @@
 .home {
   width: 100vw;
   height: 100vh;
-  background-size: cover;
-  background-position: center;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,4 +9,41 @@
 .content {
   color: white;
   font-size: 32px;
+  z-index: 1;
+}
+
+.background {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.backgroundImage {
+  height: inherit;
+  width: inherit;
+  position: inherit;
+  background-size: cover;
+  background-position: center;
+  opacity: 1;
+  transition: opacity 1s linear;
+}
+
+.backgroundImage.fadeOut {
+  opacity: 0;
+}
+
+@-webkit-keyframes zoom-in {
+  0% {
+      -webkit-transform: scale(1);
+  }
+  100% {
+      -webkit-transform: scale(1.1);
+  }
+}
+
+.backgroundImage.zoom {
+  animation: zoom-in;
+  animation-duration: 5s;
 }

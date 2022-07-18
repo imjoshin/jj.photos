@@ -133,7 +133,9 @@ export const Home = ({ images }: HomeProps) => {
       {backgroundsDisplay}
     </div>
     <div className={styles.content}>
-      <Icon accent={currentBackground.colors.lightVibrant} className={styles.icon} />
+      <div className={styles.iconContainer}>
+        <Icon accent={currentBackground.colors.lightVibrant} className={styles.icon} />
+      </div>
     </div>
   </div>
 }

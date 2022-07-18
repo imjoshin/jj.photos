@@ -15,15 +15,14 @@ interface HomeProps {
   images: HomeImage[],
 }
 
-let lastRandomImage: string
-const getRandomImage = (images: HomeImage[]) => {
+const getRandomImage = (images: HomeImage[], currentImage: HomeImage = null) => {
   let random = images[Math.floor(Math.random() * images.length)]
 
-  while (random.blog === lastRandomImage) {
-    random = images[Math.floor(Math.random() * images.length)]
+  if (currentImage) {
+    while (random.src === currentImage.src) {
+      random = images[Math.floor(Math.random() * images.length)]
+    }
   }
-
-  lastRandomImage = random.src
 
   return {
     started: Date.now(),
@@ -31,8 +30,8 @@ const getRandomImage = (images: HomeImage[]) => {
   }
 }
 
-const ROTATE_INTERVAL = 3000
-const TRANSITION_INTERVAL = 1000
+const ROTATE_INTERVAL = 10000
+const TRANSITION_INTERVAL = 1500
 
 export const Home = ({ images }: HomeProps) => {
   const [backgrounds, setBackgrounds] = useState([
@@ -43,26 +42,41 @@ export const Home = ({ images }: HomeProps) => {
   backgroundsRef.current = backgrounds
 
   useEffect(() => {
+    const handleAnimations = (fadeOutLastImage = true) => {
+      const fadedBackgrounds = [...backgroundsRef.current]
+      fadedBackgrounds[fadedBackgrounds.length - 2].className = styles.zoom
+
+      if (fadeOutLastImage) {
+        fadedBackgrounds[fadedBackgrounds.length - 1].className = [styles.zoom, styles.fadeOut].join(' ')
+      } else {
+        fadedBackgrounds[fadedBackgrounds.length - 1].className = styles.zoom
+      }
+      setBackgrounds(fadedBackgrounds)
+    }
+
     // remove one image and add a new one every ROTATE_INTERVAL
-    const interval = setInterval(() => {
+    const handleImageLayers = () => {
       const backgroundsMinusOne = backgroundsRef.current.slice(0, backgroundsRef.current.length - 1)
-      const newBackgrounds = [getRandomImage(images), ...backgroundsMinusOne]
+      const newBackgrounds = [
+        getRandomImage(images, backgroundsMinusOne[backgroundsMinusOne.length - 1]), 
+        ...backgroundsMinusOne
+      ]
 
       // set the last image to fadeOut every TRANSITION_INTERVAL
-      setTimeout(() => {
-        const fadedBackgrounds = [...backgroundsRef.current]
-        fadedBackgrounds[fadedBackgrounds.length - 2].className = styles.zoom
-        fadedBackgrounds[fadedBackgrounds.length - 1].className = [styles.zoom, styles.fadeOut].join(' ')
-        setBackgrounds(fadedBackgrounds)
-      }, TRANSITION_INTERVAL)
-
+      setTimeout(handleAnimations, TRANSITION_INTERVAL)
+      setTimeout(handleImageLayers, ROTATE_INTERVAL)
       setBackgrounds(newBackgrounds)
-    }, ROTATE_INTERVAL)
-
-    return () => {
-      clearInterval(interval)
     }
-  })
+
+    // TODO there's something weird here... images flicker on first load sometimes
+    setTimeout(() => {
+      handleAnimations(false)
+      setTimeout(() => {
+        handleAnimations()
+        setTimeout(handleImageLayers, ROTATE_INTERVAL)
+      }, TRANSITION_INTERVAL)
+    }, 10)
+  }, [])
 
   const backgroundsDisplay = backgrounds.map(background => (
     <div 

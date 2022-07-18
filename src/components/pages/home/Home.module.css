@@ -27,7 +27,7 @@
   background-size: cover;
   background-position: center;
   opacity: 1;
-  transition: opacity 1s linear;
+  transition: opacity 1.5s linear;
 }
 
 .backgroundImage.fadeOut {
@@ -39,11 +39,12 @@
       -webkit-transform: scale(1);
   }
   100% {
-      -webkit-transform: scale(1.1);
+      -webkit-transform: scale(1.15);
   }
 }
 
 .backgroundImage.zoom {
   animation: zoom-in;
-  animation-duration: 5s;
+  animation-duration: 15s;
+  animation-timing-function: linear;
 }

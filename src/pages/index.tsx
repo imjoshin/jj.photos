@@ -4,11 +4,12 @@ import { graphql } from "gatsby"
 
 const HomePage = ({data}) => {
   const heroImages = data.allFile.edges
-    .map(image => ({
+    .map(image => (image.node.fields && image.node.fields.colors && {
       src: image.node.childImageSharp.fluid.src,
       aspectRatio: image.node.childImageSharp.fluid.aspectRatio,
       colors: image.node.fields.colors,
     }))
+    .filter(i => !!i)
 
   return <Home images={heroImages} />
 }

@@ -1,6 +1,7 @@
 import * as React from "react"
 import { useRef } from "react"
 import { useEffect, useState } from "react"
+import { useWindowSize } from "../../../hooks/use-window-size"
 import { Icon } from "../../elements/icon"
 import { SEO } from "../../elements/seo"
 import * as styles from "./Home.module.css"
@@ -24,13 +25,36 @@ interface HomeProps {
   images: HomeImage[],
 }
 
+const ORIENTATION_RATIO_MIN = 4 / 3
+
+const imageIsAllowedOnWindowRatio = (image: HomeImage) => {
+  const windowAspectRatio = window.innerWidth / window.innerHeight
+
+  // close to square, so allow all
+  if (windowAspectRatio <= ORIENTATION_RATIO_MIN && windowAspectRatio >= 1 / ORIENTATION_RATIO_MIN) {
+    return true
+  }
+
+  // window is landscape and image is landscape
+  if (windowAspectRatio > ORIENTATION_RATIO_MIN && image.aspectRatio > ORIENTATION_RATIO_MIN) {
+    return true
+  }
+
+  // window is portrait and image is portrait
+  if (windowAspectRatio < 1 / ORIENTATION_RATIO_MIN && image.aspectRatio < 1 / ORIENTATION_RATIO_MIN) {
+    return true
+  }
+
+  // boo... not allowed. get outta here.
+  return false
+}
+
 const getRandomImage = (images: HomeImage[], currentImage: HomeImage = null) => {
+
   let random = images[Math.floor(Math.random() * images.length)]
 
-  if (currentImage) {
-    while (random.src === currentImage.src) {
-      random = images[Math.floor(Math.random() * images.length)]
-    }
+  while (!imageIsAllowedOnWindowRatio(random) || (currentImage && random.src === currentImage.src)) {
+    random = images[Math.floor(Math.random() * images.length)]
   }
 
   return {
@@ -39,10 +63,11 @@ const getRandomImage = (images: HomeImage[], currentImage: HomeImage = null) => 
   }
 }
 
-const ROTATE_INTERVAL = 10000
+const ROTATE_INTERVAL = 3000
 const TRANSITION_INTERVAL = 1500
 
 export const Home = ({ images }: HomeProps) => {
+  // initialize background state
   const [backgrounds, setBackgrounds] = useState([
     getRandomImage(images), 
     getRandomImage(images),
@@ -50,6 +75,7 @@ export const Home = ({ images }: HomeProps) => {
   const backgroundsRef = useRef([])
   backgroundsRef.current = backgrounds
 
+  // kick off animation
   useEffect(() => {
     const handleAnimations = (fadeOutLastImage = true) => {
       const fadedBackgrounds = [...backgroundsRef.current]
@@ -67,7 +93,10 @@ export const Home = ({ images }: HomeProps) => {
     const handleImageLayers = () => {
       const backgroundsMinusOne = backgroundsRef.current.slice(0, backgroundsRef.current.length - 1)
       const newBackgrounds = [
-        getRandomImage(images, backgroundsMinusOne[backgroundsMinusOne.length - 1]), 
+        getRandomImage(
+          images,
+          backgroundsMinusOne[backgroundsMinusOne.length - 1]
+        ), 
         ...backgroundsMinusOne
       ]
 
@@ -87,6 +116,7 @@ export const Home = ({ images }: HomeProps) => {
     }, 10)
   }, [])
 
+  // order background divs
   const backgroundsDisplay = backgrounds.map(background => (
     <div 
       key={`${background.src}-${background.started}`} 

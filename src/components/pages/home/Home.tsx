@@ -2,11 +2,11 @@ import * as React from "react"
 import { useRef } from "react"
 import { useEffect, useState } from "react"
 import { Icon } from "../../elements/icon"
+import { SEO } from "../../elements/seo"
 import * as styles from "./Home.module.css"
 
 type HomeImage = {
   src: string,
-  blog: string,
   aspectRatio: number,
   started?: number,
   className?: string,
@@ -88,6 +88,7 @@ export const Home = ({ images }: HomeProps) => {
   ))
 
   return <div className={styles.home}>
+    <SEO />
     <div className={styles.background}>
       {backgroundsDisplay}
     </div>

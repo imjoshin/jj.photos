@@ -28,19 +28,6 @@ module.exports = {
       },
     },
     `gatsby-remark-images`,
-    {
-      resolve: `gatsby-plugin-mdx`,
-      options: {
-        gatsbyRemarkPlugins: [
-          {
-            resolve: `gatsby-remark-images`,
-            options: {
-              maxWidth: 1200,
-            },
-          },
-        ],
-      },
-    },
     "gatsby-plugin-sharp",
     "gatsby-plugin-theme-ui",
     "gatsby-transformer-sharp",
@@ -51,14 +38,6 @@ module.exports = {
         path: "./src/images/",
       },
       __key: "images",
-    },
-    {
-      resolve: "gatsby-source-filesystem",
-      options: {
-        name: "blog",
-        path: "./src/blog/",
-      },
-      __key: "blog",
     },
   ],
 };

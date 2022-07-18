@@ -2,12 +2,11 @@ import * as React from "react"
 import { Home } from "../components/pages/home"
 import { graphql } from "gatsby"
 
-const HomePage = ({data}) => { 
-  const heroImages = data.allImageSharp.edges
+const HomePage = ({data}) => {
+  const heroImages = data.allFile.edges
     .map(sharp => ({
-      src: sharp.node.fluid.src,
-      blog: `/${sharp.node.fields.relativeDirectory}`,
-      aspectRatio: sharp.node.fluid.aspectRatio
+      src: sharp.node.childImageSharp.fluid.src,
+      aspectRatio: sharp.node.childImageSharp.fluid.aspectRatio
     }))
 
   return <Home images={heroImages} />
@@ -15,23 +14,27 @@ const HomePage = ({data}) => {
 
 export const query = graphql`
   query {
-    allImageSharp(
-      filter: {fields: {absolutePath: {regex: "/.*\\/images\\/blog\\/.*/"}}}
+    allFile(
+      filter: {extension: {in: ["jpg", "png"]}, absolutePath: {regex: "/\\/images\\/home\\//"}}
     ) {
       edges {
         node {
+          relativeDirectory
+          name
           id
-          fluid {
-            src,
-            aspectRatio
-          }
-          fields {
-            relativeDirectory
+          publicURL
+          extension
+          publicURL
+          childImageSharp {
+            fluid(maxWidth: 2500) {
+              ...GatsbyImageSharpFluid_withWebp
+            }
           }
         }
       }
     }
   }
+  
 `
 
 export default HomePage

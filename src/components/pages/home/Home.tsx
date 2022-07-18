@@ -63,7 +63,7 @@ const getRandomImage = (images: HomeImage[], currentImage: HomeImage = null) => 
   }
 }
 
-const ROTATE_INTERVAL = 3000
+const ROTATE_INTERVAL = 10000
 const TRANSITION_INTERVAL = 1500
 
 export const Home = ({ images }: HomeProps) => {

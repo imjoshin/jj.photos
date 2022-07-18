@@ -4,9 +4,10 @@ import { graphql } from "gatsby"
 
 const HomePage = ({data}) => {
   const heroImages = data.allFile.edges
-    .map(sharp => ({
-      src: sharp.node.childImageSharp.fluid.src,
-      aspectRatio: sharp.node.childImageSharp.fluid.aspectRatio
+    .map(image => ({
+      src: image.node.childImageSharp.fluid.src,
+      aspectRatio: image.node.childImageSharp.fluid.aspectRatio,
+      colors: image.node.fields.colors,
     }))
 
   return <Home images={heroImages} />
@@ -25,6 +26,16 @@ export const query = graphql`
           publicURL
           extension
           publicURL
+          fields {
+            colors {
+              vibrant
+              darkVibrant
+              lightVibrant
+              muted
+              darkMuted
+              lightMuted
+            }
+          }
           childImageSharp {
             fluid(maxWidth: 2500) {
               ...GatsbyImageSharpFluid_withWebp

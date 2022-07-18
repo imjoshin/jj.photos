@@ -8,6 +8,14 @@ import * as styles from "./Home.module.css"
 type HomeImage = {
   src: string,
   aspectRatio: number,
+  colors: {
+    vibrant: string,
+    darkVibrant: string,
+    lightVibrant: string,
+    muted: string,
+    darkMuted: string,
+    lightMuted: string,
+  }
   started?: number,
   className?: string,
 }
@@ -87,13 +95,15 @@ export const Home = ({ images }: HomeProps) => {
     />
   ))
 
+  const currentBackground = backgrounds[backgrounds.length - 2]
+
   return <div className={styles.home}>
     <SEO />
     <div className={styles.background}>
       {backgroundsDisplay}
     </div>
     <div className={styles.content}>
-      <Icon accent="#0000FF" className={styles.icon} />
+      <Icon accent={currentBackground.colors.vibrant} className={styles.icon} />
     </div>
   </div>
 }

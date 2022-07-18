@@ -1,10 +1,10 @@
 .container {
   /* display: flex; */
   position: relative;
-  -webkit-filter: drop-shadow(1px 1px 5px rgba(0,0,0,0.75));
-  -moz-filter: drop-shadow(1px 1px 5px rgba(0,0,0,0.75));
-  -ms-filter: drop-shadow(1px 1px 5px rgba(0,0,0,0.75));
-  -o-filter: drop-shadow(1px 1px 5px rgba(0,0,0,0.75));
+  -webkit-filter: drop-shadow(1px 1px 7px rgba(0,0,0,1));
+  -moz-filter: drop-shadow(1px 1px 7px rgba(0,0,0,1));
+  -ms-filter: drop-shadow(1px 1px 7px rgba(0,0,0,1));
+  -o-filter: drop-shadow(1px 1px 7px rgba(0,0,0,1));
 }
 
 .main, .accent {

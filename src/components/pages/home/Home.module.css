@@ -17,7 +17,8 @@
 }
 
 .content .icon {
-  height: 30%;
+  margin-top: 5%;
+  height: 20%;
   max-width: 90%;
   aspect-ratio: 2;
 }

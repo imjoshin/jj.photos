@@ -28,6 +28,11 @@ interface HomeProps {
 const ORIENTATION_RATIO_MIN = 4 / 3
 
 const imageIsAllowedOnWindowRatio = (image: HomeImage) => {
+  // window is not available in SSR, so just allow it
+  if (typeof window === "undefined") {
+    return true
+  }
+
   const windowAspectRatio = window.innerWidth / window.innerHeight
 
   // close to square, so allow all

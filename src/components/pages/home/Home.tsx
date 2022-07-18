@@ -1,6 +1,7 @@
 import * as React from "react"
 import { useRef } from "react"
 import { useEffect, useState } from "react"
+import { Icon } from "../../elements/icon"
 import * as styles from "./Home.module.css"
 
 type HomeImage = {
@@ -91,8 +92,7 @@ export const Home = ({ images }: HomeProps) => {
       {backgroundsDisplay}
     </div>
     <div className={styles.content}>
-      <div>TEST</div>
-      <a href={backgrounds[0].blog}>See this blog post</a>
+      <Icon accent="#000000" className={styles.icon} />
     </div>
   </div>
 }

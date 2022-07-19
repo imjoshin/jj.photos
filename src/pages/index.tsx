@@ -4,11 +4,13 @@ import { graphql } from "gatsby"
 
 const HomePage = ({data}) => {
   const heroImages = data.allFile.edges
-    .map(image => (image.node.fields && image.node.fields.colors && {
-      src: image.node.childImageSharp.fluid.src,
-      aspectRatio: image.node.childImageSharp.fluid.aspectRatio,
-      colors: image.node.fields.colors,
-    }))
+    .map(image => {
+      return image.node.fields && image.node.fields.accentColor && {
+        src: image.node.childImageSharp.fluid.src,
+        aspectRatio: image.node.childImageSharp.fluid.aspectRatio,
+        accentColor: image.node.fields.accentColor,
+      }
+    })
     .filter(i => !!i)
 
   return <Home images={heroImages} />
@@ -28,14 +30,7 @@ export const query = graphql`
           extension
           publicURL
           fields {
-            colors {
-              vibrant
-              darkVibrant
-              lightVibrant
-              muted
-              darkMuted
-              lightMuted
-            }
+            accentColor
           }
           childImageSharp {
             fluid(maxWidth: 2500) {
@@ -48,5 +43,19 @@ export const query = graphql`
   }
   
 `
+
+/**
+ * 
+          fields {
+            colors {
+              vibrant
+              darkVibrant
+              lightVibrant
+              muted
+              darkMuted
+              lightMuted
+            }
+          }
+ */
 
 export default HomePage

@@ -1,5 +1,5 @@
 {
-  "name": "gatsby-plugin-extract-image-colors",
+  "name": "gatsby-plugin-extract-accent-color",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",

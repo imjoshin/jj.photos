@@ -1,7 +1,6 @@
 import * as React from "react"
 import { useRef } from "react"
 import { useEffect, useState } from "react"
-import { useWindowSize } from "../../../hooks/use-window-size"
 import { Icon } from "../../elements/icon"
 import { SEO } from "../../elements/seo"
 import * as styles from "./Home.module.css"
@@ -9,14 +8,7 @@ import * as styles from "./Home.module.css"
 type HomeImage = {
   src: string,
   aspectRatio: number,
-  colors: {
-    vibrant: string,
-    darkVibrant: string,
-    lightVibrant: string,
-    muted: string,
-    darkMuted: string,
-    lightMuted: string,
-  }
+  accentColor: string,
   started?: number,
   className?: string,
 }
@@ -132,6 +124,7 @@ export const Home = ({ images }: HomeProps) => {
 
   const currentBackground = backgrounds[backgrounds.length - 2]
 
+  console.log(currentBackground)
   return <div className={styles.home}>
     <SEO />
     <div className={styles.background}>
@@ -139,7 +132,7 @@ export const Home = ({ images }: HomeProps) => {
     </div>
     <div className={styles.content}>
       <div className={styles.iconContainer}>
-        <Icon accent={currentBackground.colors.lightVibrant} className={styles.icon} />
+        <Icon accent={currentBackground.accentColor} className={styles.icon} />
       </div>
     </div>
   </div>

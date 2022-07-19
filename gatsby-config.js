@@ -39,6 +39,6 @@ module.exports = {
       },
       __key: "images",
     },
-    'gatsby-plugin-extract-image-colors'
+    'gatsby-plugin-extract-accent-color'
   ],
 };

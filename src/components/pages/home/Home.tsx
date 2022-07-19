@@ -124,7 +124,6 @@ export const Home = ({ images }: HomeProps) => {
 
   const currentBackground = backgrounds[backgrounds.length - 2]
 
-  console.log(currentBackground)
   return <div className={styles.home}>
     <SEO />
     <div className={styles.background}>

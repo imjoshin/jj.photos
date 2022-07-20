@@ -22,8 +22,6 @@ export const Nav = ({className, accentColor}: NavProps) => {
     }
   `)
 
-  console.log(JSON.stringify(galleries, null, 2))
-
   const galleryItems = galleries.allDirectory.edges.map(edge => ({
     name: edge.node.name,
     path: `/${edge.node.name}`

@@ -15,7 +15,22 @@ const getHex = rgb => {
   }).hex()
 }
 
-exports.onCreateNode = async ({ node, actions, reporter, cache }, pluginOptions) => {
+const CACHE_FILE = '.cache/caches/gatsby-plugin-extract-accent-color/colors.json'
+
+const getCache = () => {
+  if (!fs.existsSync(CACHE_FILE)) {
+    return {}
+  }
+
+  const contents = fs.readFileSync(CACHE_FILE)
+  return JSON.parse(contents.toString())
+}
+
+const writeCache = (contents) => {
+  fs.writeFileSync(CACHE_FILE, JSON.stringify(contents, null, 2))
+}
+
+exports.onCreateNode = async ({ node, actions, reporter }, pluginOptions) => {
   const options = Object.assign({}, { ...defaultOptions, ...pluginOptions })
 
   if (
@@ -36,14 +51,14 @@ exports.onCreateNode = async ({ node, actions, reporter, cache }, pluginOptions)
         value: `#${colorMatch[1]}`,
       })
     } else {
-      const cachedValue = await cache.get(node.absolutePath)
+      const cache = getCache()
 
-      if (cachedValue) {
-        return cachedValue
+      if (node.absolutePath in cache) {
+        return cache[node.absolutePath]
       }
 
-      let color = '#FFFFFF'
-
+      // Transform the new node here and create a new node or
+      // create a new node field.
       await Vibrant.from(node.absolutePath).getPalette((err, palette) => {
         if (err) {
           reporter.warn(`Encountered an error while processing ${node.absolutePath}: ${err}`)
@@ -55,16 +70,17 @@ exports.onCreateNode = async ({ node, actions, reporter, cache }, pluginOptions)
           return
         }
         
-        color = getHex(palette.Vibrant._rgb)
+        const color = getHex(palette.Vibrant._rgb)
 
         actions.createNodeField({
           node,
           name: `accentColor`,
           value: color,
         })
-      })
 
-      await cache.set(node.absolutePath, color)
+        cache[node.absolutePath] = color
+        writeCache(cache)
+      })
     }
   }
 }

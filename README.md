@@ -6,5 +6,3 @@
 <h1 align="center">
   JJ Photos
 </h1>
-
-Heavily inspired by [LekoArt's Cara Theme](https://github.com/LekoArts/gatsby-starter-portfolio-cara).

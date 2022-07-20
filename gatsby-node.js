@@ -1,40 +1,31 @@
-const standardBasePath = `/`
+const path = require('path')
 
-exports.createPages = async ({ actions }, themeOptions) => {
-  // const { createPage } = actions
+exports.createPages = async ({ graphql, actions }) => {
+  const { createPage } = actions
+  const galleryTemplate = path.resolve(`src/components/pages/gallery/index.ts`)
+  // Query for markdown nodes to use in creating pages.
+  // You can query for whatever data you want to create pages for e.g.
+  // products, portfolio items, landing pages, etc.
+  // Variables can be added as the second function parameter
+  const galleries = await graphql(`
+    query {
+      allDirectory(filter: {absolutePath: {regex: "/images/gallery/.+/"}}) {
+        edges {
+          node {
+            name
+          }
+        }
+      }
+    }
+  `)
 
-  // const basePath = themeOptions.basePath || standardBasePath
-
-  // createPage({
-  //   path: basePath,
-  //   component: require.resolve(`./src/templates/home.tsx`),
-  // })
-}
-
-exports.onCreateNode = ({ node, getNode, actions }) => {
-  const { createNodeField } = actions
-
-  // TODO add blog path
-
-  if (node.internal.type === `ImageSharp`) {
-    const parent = getNode(node.parent)
-
-    createNodeField({
-      node,
-      name: `absolutePath`,
-      value: parent.absolutePath,
+  galleries.data.allDirectory.edges.forEach(edge => {
+    createPage({
+      path: `${edge.node.name}`,
+      component: galleryTemplate,
+      context: {
+        name: edge.node.name,
+      },
     })
-
-    createNodeField({
-      node,
-      name: `relativePath`,
-      value: parent.relativePath,
-    })
-
-    createNodeField({
-      node,
-      name: `relativeDirectory`,
-      value: parent.relativeDirectory,
-    })
-  }
+  })
 }

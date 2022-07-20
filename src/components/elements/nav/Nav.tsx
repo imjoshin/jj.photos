@@ -2,6 +2,7 @@ import * as React from "react"
 import { Link } from "gatsby"
 import * as styles from "./Nav.module.css"
 import { clsx } from "clsx"
+import { useStaticQuery, graphql } from "gatsby"
 
 interface NavProps {
   accentColor: string,
@@ -9,15 +10,35 @@ interface NavProps {
 }
 
 export const Nav = ({className, accentColor}: NavProps) => {
+  const galleries = useStaticQuery(graphql`
+    query {
+      allDirectory(filter: {absolutePath: {regex: "/images/gallery/.+/"}}) {
+        edges {
+          node {
+            name
+          }
+        }
+      }
+    }
+  `)
+
+  console.log(JSON.stringify(galleries, null, 2))
+
+  const galleryItems = galleries.allDirectory.edges.map(edge => ({
+    name: edge.node.name,
+    path: `/${edge.node.name}`
+  }))
+
   const hoverColor = {
     color: accentColor,
   }
 
   return (
     <div className={clsx([styles.nav, className])} style={hoverColor}>
-      <Link className={styles.link} to="/">Nav 1</Link>
-      <Link className={styles.link} to="/">Nav 2</Link>
-      <Link className={styles.link} to="/">Nav 3</Link>
+      {galleryItems.map(gallery => (
+        <Link className={styles.link} to={gallery.path}>{gallery.name}</Link>
+      ))}
+      <a className={styles.link} href="https://my.jj.photos">clients</a>
     </div>
   )
 }

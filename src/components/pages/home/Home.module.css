@@ -8,31 +8,26 @@
 
 .content {
   color: white;
-  font-size: 32px;
   z-index: 1;
   height: 100%;
   width: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
 }
 
 .content .iconContainer {
-  margin-top: 5%;
   width: 100%;
-  display: flex;
-  justify-content: center;
 }
 
 .content .iconContainer .icon {
-  height: 15%;
+  height: 12vh;
   max-width: 90%;
   aspect-ratio: 2;
 }
 
 @media only screen and (min-width: 1200px) {
-  .content .iconContainer {
-    justify-content: start;
-    margin-left: 5%;
+  .content {
+    padding: 5%;
   }
 }
 

@@ -29,8 +29,5 @@
 .accent {
   -webkit-mask-image: url("../../../images/icon-split-accent.png");
   mask-image: url("../../../images/icon-split-accent.png");
-  transition: background 1s ease-in-out;
-
-  /** TODO: this is a hack to fix a transition issue on the home screen */
-  transition-delay: 1.5s;
+  transition: background 1.5s ease-in-out;
 }

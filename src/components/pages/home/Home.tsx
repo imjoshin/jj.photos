@@ -2,6 +2,7 @@ import * as React from "react"
 import { useRef } from "react"
 import { useEffect, useState } from "react"
 import { Icon } from "../../elements/icon"
+import { Nav } from "../../elements/nav"
 import { SEO } from "../../elements/seo"
 import * as styles from "./Home.module.css"
 
@@ -72,6 +73,8 @@ export const Home = ({ images }: HomeProps) => {
   const backgroundsRef = useRef([])
   backgroundsRef.current = backgrounds
 
+  const [accentColor, setAccentColor] = useState(backgrounds[1].accentColor)
+
   // kick off animation
   useEffect(() => {
     const handleAnimations = (fadeOutLastImage = true) => {
@@ -83,7 +86,9 @@ export const Home = ({ images }: HomeProps) => {
       } else {
         fadedBackgrounds[fadedBackgrounds.length - 1].className = styles.zoom
       }
+
       setBackgrounds(fadedBackgrounds)
+      setAccentColor(fadedBackgrounds[fadedBackgrounds.length - 2].accentColor)
     }
 
     // remove one image and add a new one every ROTATE_INTERVAL
@@ -122,8 +127,6 @@ export const Home = ({ images }: HomeProps) => {
     />
   ))
 
-  const currentBackground = backgrounds[backgrounds.length - 2]
-
   return <div className={styles.home}>
     <SEO />
     <div className={styles.background}>
@@ -131,8 +134,9 @@ export const Home = ({ images }: HomeProps) => {
     </div>
     <div className={styles.content}>
       <div className={styles.iconContainer}>
-        <Icon accent={currentBackground.accentColor} className={styles.icon} />
+        <Icon accent={accentColor} className={styles.icon} />
       </div>
+      <Nav accentColor={accentColor}/>
     </div>
   </div>
 }

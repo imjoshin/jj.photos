@@ -1,0 +1,20 @@
+.nav {
+  -webkit-filter: drop-shadow(1px 1px 3px rgba(0,0,0,0.75));
+  -moz-filter: drop-shadow(1px 1px 3px rgba(0,0,0,0.75));
+  -ms-filter: drop-shadow(1px 1px 3px rgba(0,0,0,0.75));
+  -o-filter: drop-shadow(1px 1px 3px rgba(0,0,0,0.75));
+  padding-top: 4rem;
+  font-size: 2rem;
+}
+
+.link {
+  display: block;
+  float: left;
+  clear: left;
+  color: white;
+  padding: 2rem 0;
+}
+
+.link:hover {
+  color: inherit;
+}

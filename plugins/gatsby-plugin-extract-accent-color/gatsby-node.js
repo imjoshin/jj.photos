@@ -19,6 +19,7 @@ const CACHE_FILE = '.cache/extracted-accent-colors.json'
 
 const getCache = () => {
   if (!fs.existsSync(CACHE_FILE)) {
+    // TODO this is always triggering on a new build? I dunno why...
     return {}
   }
 

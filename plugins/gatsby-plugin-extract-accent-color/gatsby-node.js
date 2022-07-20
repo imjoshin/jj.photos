@@ -15,7 +15,7 @@ const getHex = rgb => {
   }).hex()
 }
 
-const CACHE_FILE = '.cache/caches/gatsby-plugin-extract-accent-color/colors.json'
+const CACHE_FILE = '.cache/extracted-accent-colors.json'
 
 const getCache = () => {
   if (!fs.existsSync(CACHE_FILE)) {
@@ -51,9 +51,9 @@ exports.onCreateNode = async ({ node, actions, reporter }, pluginOptions) => {
         value: `#${colorMatch[1]}`,
       })
     } else {
-      const cache = getCache()
+      let cache = getCache()
 
-      if (node.absolutePath in cache) {
+      if (cache && cache[node.absolutePath]) {
         return cache[node.absolutePath]
       }
 
@@ -78,6 +78,7 @@ exports.onCreateNode = async ({ node, actions, reporter }, pluginOptions) => {
           value: color,
         })
 
+        cache = getCache()
         cache[node.absolutePath] = color
         writeCache(cache)
       })

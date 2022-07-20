@@ -15,7 +15,7 @@ const getHex = rgb => {
   }).hex()
 }
 
-exports.onCreateNode = async ({ node, actions, reporter }, pluginOptions) => {
+exports.onCreateNode = async ({ node, actions, reporter, cache }, pluginOptions) => {
   const options = Object.assign({}, { ...defaultOptions, ...pluginOptions })
 
   if (
@@ -36,8 +36,14 @@ exports.onCreateNode = async ({ node, actions, reporter }, pluginOptions) => {
         value: `#${colorMatch[1]}`,
       })
     } else {
-      // Transform the new node here and create a new node or
-      // create a new node field.
+      const cachedValue = await cache.get(node.absolutePath)
+
+      if (cachedValue) {
+        return cachedValue
+      }
+
+      let color = '#FFFFFF'
+
       await Vibrant.from(node.absolutePath).getPalette((err, palette) => {
         if (err) {
           reporter.warn(`Encountered an error while processing ${node.absolutePath}: ${err}`)
@@ -49,12 +55,16 @@ exports.onCreateNode = async ({ node, actions, reporter }, pluginOptions) => {
           return
         }
         
+        color = getHex(palette.Vibrant._rgb)
+
         actions.createNodeField({
           node,
           name: `accentColor`,
-          value: getHex(palette.Vibrant._rgb),
+          value: color,
         })
       })
+
+      await cache.set(node.absolutePath, color)
     }
   }
 }

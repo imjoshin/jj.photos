@@ -4,7 +4,8 @@ const Color = require('color')
 
 const defaultOptions = {
   extensions: ['jpg', 'png'],
-  exclude: []
+  exclude: [],
+  directories: [],
 }
 
 const getHex = rgb => {
@@ -40,6 +41,17 @@ exports.onCreateNode = async ({ node, actions, reporter }, pluginOptions) => {
     options.extensions.indexOf(node.extension) !== -1 &&
     options.exclude.indexOf(`${node.name}${node.ext}`) === -1
   ) {
+    // TODO this is bad but it works for now
+    if (options.directories) {
+      const isDirectoryIncluded = options.directories.some(
+        d => node.absolutePath.indexOf(d) >= 0
+      )
+
+      if (!isDirectoryIncluded) {
+        return
+      }
+    }
+
     // allow file name override
     const imageColorRegex = /-c([A-F0-9]{6})/
     const colorMatch = node.name.match(imageColorRegex)

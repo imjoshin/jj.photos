@@ -39,6 +39,12 @@ module.exports = {
       },
       __key: "images",
     },
-    'gatsby-plugin-extract-accent-color'
+    {
+      resolve: 'gatsby-plugin-extract-accent-color',
+      options: {
+        directories: ["src/images/home"],
+      },
+    }
+    
   ],
 };

@@ -23,8 +23,8 @@ export const Nav = ({className, accentColor}: NavProps) => {
   `)
 
   const galleryItems = galleries.allDirectory.edges.map(edge => ({
-    name: edge.node.name,
-    path: `/${edge.node.name}`
+    name: edge.node.name.slice(2),
+    path: `/${edge.node.name.slice(2)}`
   }))
 
   const hoverColor = {

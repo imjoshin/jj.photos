@@ -21,10 +21,10 @@ exports.createPages = async ({ graphql, actions }) => {
 
   galleries.data.allDirectory.edges.forEach(edge => {
     createPage({
-      path: `${edge.node.name}`,
+      path: `${edge.node.name.slice(2)}`,
       component: galleryTemplate,
       context: {
-        name: edge.node.name,
+        name: edge.node.name.slice(2),
       },
     })
   })

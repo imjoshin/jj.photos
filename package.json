@@ -38,6 +38,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
+    "react-photo-album": "^1.16.1",
     "theme-ui": "^0.13.1",
     "typescript-plugin-css-modules": "^3.4.0"
   }

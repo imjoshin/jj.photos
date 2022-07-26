@@ -29,3 +29,24 @@ exports.createPages = async ({ graphql, actions }) => {
     })
   })
 }
+
+exports.onCreateNode = ({ node, getNode, actions }) => {
+  const { createNodeField } = actions
+  const parent = getNode(node.parent)
+
+  if (
+    node.internal.type === `ImageSharp` && 
+    parent.absolutePath.indexOf("src/images/gallery") >= 0
+  ) {
+    const pathRegex = /src\/images\/gallery\/\d+-([^\/]+)\//
+    const pathRegexMatch = parent.absolutePath.match(pathRegex)
+
+    if (pathRegexMatch) {
+      createNodeField({
+        node,
+        name: `gallery`,
+        value: pathRegexMatch[1],
+      })
+    }
+  }
+}

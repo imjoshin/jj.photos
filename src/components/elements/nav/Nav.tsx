@@ -7,9 +7,10 @@ import { useStaticQuery, graphql } from "gatsby"
 interface NavProps {
   accentColor: string,
   className?: string,
+  itemClassName?: string,
 }
 
-export const Nav = ({className, accentColor}: NavProps) => {
+export const Nav = ({className, itemClassName, accentColor}: NavProps) => {
   const galleries = useStaticQuery(graphql`
     query {
       allDirectory(filter: {absolutePath: {regex: "/images/gallery/.+/"}}) {
@@ -37,10 +38,10 @@ export const Nav = ({className, accentColor}: NavProps) => {
   return (
     <div className={clsx([styles.nav, className])} style={hoverColor}>
       {galleryItems.map(gallery => (
-        <Link className={styles.link} to={gallery.path}>{gallery.name}</Link>
+        <Link className={clsx(styles.link, itemClassName)} to={gallery.path}>{gallery.name}</Link>
       ))}
-      <a className={styles.link} href="https://my.jj.photos">clients</a>
-      <a className={styles.link} href="mailto:josh@jj.photos">contact</a>
+      <a className={clsx(styles.link, itemClassName)} href="https://my.jj.photos">clients</a>
+      <a className={clsx(styles.link, itemClassName)} href="mailto:josh@jj.photos">contact</a>
     </div>
   )
 }

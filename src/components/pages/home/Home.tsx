@@ -136,7 +136,7 @@ export const Home = ({ images }: HomeProps) => {
       <div className={styles.iconContainer}>
         <Icon accent={accentColor} className={styles.icon} />
       </div>
-      <Nav accentColor={accentColor}/>
+      <Nav accentColor={accentColor} className={styles.nav} itemClassName={styles.navItem} />
     </div>
   </div>
 }

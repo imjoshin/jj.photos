@@ -22,10 +22,13 @@ export const Nav = ({className, accentColor}: NavProps) => {
     }
   `)
 
-  const galleryItems = galleries.allDirectory.edges.map(edge => ({
-    name: edge.node.name.slice(2),
-    path: `/${edge.node.name.slice(2)}`
-  }))
+  let galleryItems = []
+  if (process.env.NODE_ENV === "development") {
+    galleryItems = galleries.allDirectory.edges.map(edge => ({
+      name: edge.node.name.slice(2),
+      path: `/${edge.node.name.slice(2)}`
+    }))
+  }
 
   const hoverColor = {
     color: accentColor,
@@ -37,6 +40,7 @@ export const Nav = ({className, accentColor}: NavProps) => {
         <Link className={styles.link} to={gallery.path}>{gallery.name}</Link>
       ))}
       <a className={styles.link} href="https://my.jj.photos">clients</a>
+      <a className={styles.link} href="mailto:josh@jj.photos">contact</a>
     </div>
   )
 }

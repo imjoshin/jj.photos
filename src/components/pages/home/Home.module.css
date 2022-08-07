@@ -37,6 +37,7 @@
 
   .content .nav .navItem {
     float: none;
+    text-align: center;
   }
 }
 

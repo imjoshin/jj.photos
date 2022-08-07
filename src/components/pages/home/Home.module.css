@@ -73,3 +73,19 @@
   animation-duration: 15s;
   animation-timing-function: linear;
 }
+
+.backgroundBorder {
+  width: calc(100% - 42px);
+  height: calc(100% - 42px);
+  margin: 20px;
+  border: 1px solid white;
+  position: relative;
+}
+
+@media only screen and (max-width: 768px) {
+  .backgroundBorder {
+    width: calc(100% - 22px);
+    height: calc(100% - 22px);
+    margin: 10px;
+  }
+}

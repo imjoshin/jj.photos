@@ -131,6 +131,7 @@ export const Home = ({ images }: HomeProps) => {
     <SEO />
     <div className={styles.background}>
       {backgroundsDisplay}
+      <div className={styles.backgroundBorder}></div>
     </div>
     <div className={styles.content}>
       <div className={styles.iconContainer}>

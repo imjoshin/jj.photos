@@ -53,7 +53,7 @@ exports.onCreateNode = async ({ node, actions, reporter }, pluginOptions) => {
     }
 
     // allow file name override
-    const imageColorRegex = /-c([A-F0-9]{6})/
+    const imageColorRegex = /-c([A-Fa-f0-9]{6})/
     const colorMatch = node.name.match(imageColorRegex)
     
     if (colorMatch) {

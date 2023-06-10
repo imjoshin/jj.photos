@@ -116,6 +116,8 @@ export const Home = ({ images }: HomeProps) => {
         setTimeout(handleImageLayers, ROTATE_INTERVAL)
       }, TRANSITION_INTERVAL)
     }, 10)
+
+    // TODO return cleanup for all these
   }, [])
 
   // order background divs

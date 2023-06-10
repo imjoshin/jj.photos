@@ -66,17 +66,21 @@ const TRANSITION_INTERVAL = 1500
 
 export const Home = ({ images }: HomeProps) => {
   // initialize background state
-  const [backgrounds, setBackgrounds] = useState([
-    getRandomImage(images), 
-    getRandomImage(images),
-  ])
+  const [backgrounds, setBackgrounds] = useState([])
   const backgroundsRef = useRef([])
   backgroundsRef.current = backgrounds
 
-  const [accentColor, setAccentColor] = useState(backgrounds[1].accentColor)
+  const [accentColor, setAccentColor] = useState('#FFFFFF')
 
   // kick off animation
   useEffect(() => {
+    const initialBackgrounds = [
+      getRandomImage(images),
+      getRandomImage(images),
+    ];
+    setBackgrounds(initialBackgrounds);
+    setAccentColor(initialBackgrounds[1].accentColor)
+
     const handleAnimations = (fadeOutLastImage = true) => {
       const fadedBackgrounds = [...backgroundsRef.current]
       fadedBackgrounds[fadedBackgrounds.length - 2].className = styles.zoom
@@ -115,7 +119,7 @@ export const Home = ({ images }: HomeProps) => {
         handleAnimations()
         setTimeout(handleImageLayers, ROTATE_INTERVAL)
       }, TRANSITION_INTERVAL)
-    }, 10)
+    }, ROTATE_INTERVAL / 2)
 
     // TODO return cleanup for all these
   }, [])

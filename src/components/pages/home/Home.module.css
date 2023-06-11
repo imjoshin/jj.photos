@@ -59,12 +59,13 @@
   opacity: 0;
 }
 
-@-webkit-keyframes zoom-in {
+@keyframes zoom-in {
   0% {
-      -webkit-transform: scale(1);
+    transform: scale(1);
   }
+
   100% {
-      -webkit-transform: scale(1.15);
+    transform: scale(1.15);
   }
 }
 
